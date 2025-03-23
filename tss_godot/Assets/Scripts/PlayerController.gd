@@ -11,6 +11,7 @@ var is_dead = false
 var cur_health: int = health
 var aim_direction = Vector2.RIGHT
 
+
 signal player_died
 
 func _ready():

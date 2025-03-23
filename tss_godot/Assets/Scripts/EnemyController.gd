@@ -6,7 +6,7 @@ extends CharacterBody2D
 @export var score: int = 10
 
 var player = null
-signal enemy_died
+var is_dead = false
 
 @onready var detection_area = $CollisionArea
 
@@ -32,10 +32,22 @@ func _on_body_entered(body):
 		player.take_damage(damage)
 
 func take_damage(dmg: int):
+	if is_dead:
+		# Do nothing if enemy is already dead
+		# In case if still in death animations
+		return
 	hp -= dmg
 	if hp <= 0:
 		die()
 
 func die():
+	is_dead = true
+	play_death_animation()
+	GameManager.increase_score(score)
 	
+	await(get_tree().create_timer(2.0))
+	queue_free() #Remove from scene
 
+func play_death_animation():
+	# TODO: Play Death Animation/Effect
+	pass
