@@ -48,5 +48,11 @@ func use_weapon():
 	cur_weapon.attack()
 
 func die():
-	# TODO: Implement Player Death
+	emit_signal("player_died")
+	play_death_animation()
+	await(get_tree().create_timer(2.0))
+	# TODO: Trigger GameOver/Score Screen
+
+func play_death_animation():
+	#TODO: Play Death Animation?
 	pass

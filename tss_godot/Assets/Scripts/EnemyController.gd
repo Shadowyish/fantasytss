@@ -3,8 +3,10 @@ extends CharacterBody2D
 @export var speed: float = 100.0
 @export var damage: int = 10  # Damage dealt when colliding with the player
 @export var hp: int = 10
+@export var score: int = 10
 
 var player = null
+signal enemy_died
 
 @onready var detection_area = $CollisionArea
 
@@ -35,6 +37,5 @@ func take_damage(dmg: int):
 		die()
 
 func die():
-	#TODO: Implement Enemy Death
-	pass
+	
 
