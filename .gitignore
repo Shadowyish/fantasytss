@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/godot
 # Edit at https://www.toptal.com/developers/gitignore?templates=godot
 
+#Potiental Asset Folder
+Assets_Possible/
+
 ### Godot ###
 # Godot 4+ specific ignores
 .godot/
