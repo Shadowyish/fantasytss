@@ -10,11 +10,19 @@ extends CharacterBody2D
 var is_dead = false
 var cur_health: int = health
 var aim_direction = Vector2.RIGHT
-
+var iframe_time: float = 0.67
+var is_invunerable = false
 
 signal player_died
 
+@onready var iframe_timer = Timer.new()
+
 func _ready():
+	# timer hookups
+	add_child(iframe_timer)
+	iframe_timer.one_shot = true
+	iframe_timer.connect("timeout", _on_iframe_timeout)
+	
 	GameManager.player = self
 
 func _physics_process(delta):
@@ -44,6 +52,11 @@ func take_damage(damage: int):
 	cur_health -= damage
 	if cur_health <= 0:
 		die()
+	else: # start iframes
+		is_invunerable = true
+		#TODO: give some indication of iframes
+		#start timer
+		iframe_timer.start(iframe_time)
 
 func use_weapon():
 	cur_weapon.attack()
@@ -52,8 +65,12 @@ func die():
 	emit_signal("player_died")
 	play_death_animation()
 	await(get_tree().create_timer(2.0))
-	# TODO: Trigger GameOver/Score Screen
+	#TODO: Trigger GameOver/Score Screen
 
 func play_death_animation():
 	#TODO: Play Death Animation?
 	pass
+
+func _on_iframe_timeout():
+	is_invunerable = false
+	#TODO: remove visuals
