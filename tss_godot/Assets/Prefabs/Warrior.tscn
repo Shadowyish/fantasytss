@@ -328,7 +328,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Node2D" type="Node2D"]
+[node name="Warrior" type="Node2D"]
 script = ExtResource("1_bbnkl")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]

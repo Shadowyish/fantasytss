@@ -87,10 +87,10 @@ func _on_animation_finished():
 
 #Play Correct animation based on facing
 func play_cur_animation():
-	#determine direction
-	is_facing_right = aim_direction.x >= 0
-	
 	if not is_hit: #Don't change animation if playing hit animation
+		#determine direction
+		is_facing_right = aim_direction.x >= 0
+		
 		if velocity.length() == 0:
 			anim.play("idle_right" if is_facing_right else "idle_left")
 		else:
