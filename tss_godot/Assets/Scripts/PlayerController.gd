@@ -15,6 +15,7 @@ var is_invunerable = false
 
 signal player_died
 
+#Using a timer for iframes to make it unblocking
 @onready var iframe_timer = Timer.new()
 
 func _ready():
@@ -48,7 +49,7 @@ func _physics_process(delta):
 
 func take_damage(damage: int):
 	if is_dead:
-		return # do nothing if player is already dead
+		return # no need to calc death again, lol
 	cur_health -= damage
 	if cur_health <= 0:
 		die()
