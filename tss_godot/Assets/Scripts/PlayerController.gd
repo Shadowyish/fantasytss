@@ -1,10 +1,9 @@
 extends CharacterBody2D
 
-@export var speed: float = 100.0
-@export var rotation_speed: float = 60.0
-@export var health: int = 100
-@export var attack_speed: int = 10
-@export var mana: int = 20
+@export var speed: float
+@export var health: int
+@export var attack_speed: int
+@export var mana: int
 @export var cur_weapon: Node
 
 
@@ -15,6 +14,7 @@ var is_invunerable = false
 var is_dead = false
 var is_hit = false
 var is_facing_right = true
+var is_attacking = false
 
 signal player_died
 
@@ -30,6 +30,9 @@ func _ready():
 	
 	# hit animation hookup
 	anim.animation_finished.connect(_on_animation_finished)
+	
+	# Subscribe to weapon listener
+	cur_weapon.attack_finished.connect(_on_attack_done)
 	
 	GameManager.player = self
 
@@ -69,12 +72,17 @@ func take_damage(damage: int):
 		iframe_timer.start(iframe_time)
 
 func use_weapon():
+	if is_attacking:
+		return
+	is_attacking = true
 	cur_weapon.attack()
+
+func _on_attack_done():
+	is_attacking = false
 
 func die():
 	emit_signal("player_died")
-	anim.play("death_right" if is_facing_right else "death_left")
-	await(get_tree().create_timer(2.0))
+	await(anim.play("death_right" if is_facing_right else "death_left"))
 	#TODO: Trigger GameOver/Score Screen
 
 func _on_iframe_timeout():
