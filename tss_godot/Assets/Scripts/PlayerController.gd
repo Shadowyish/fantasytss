@@ -58,6 +58,10 @@ func _physics_process(delta):
 	
 	play_cur_animation()
 
+func _process(delta):
+	if Input.is_action_just_pressed("ui_attack"):
+		use_weapon()
+
 func take_damage(damage: int):
 	if is_dead:
 		return # no need to calc death again, lol
