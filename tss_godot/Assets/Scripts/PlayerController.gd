@@ -42,12 +42,15 @@ func _physics_process(delta):
 	var input_vector = Vector2.ZERO
 	# Get movement input then normalize to prevent speed boost
 	input_vector = Vector2(
-		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
-		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+		Input.get_action_strength("right") - Input.get_action_strength("left"),
+		Input.get_action_strength("down") - Input.get_action_strength("up")
 	).normalized()
 	
 	velocity = input_vector * speed * delta
-	move_and_slide()
+	var collision = move_and_collide(velocity)
+	if collision:
+		#TODO Implement character hit logic
+		pass
 	
 	# Get rotation direction
 	if GameManager.input_type == GameManager.ControlType.MOUSE_KEYBOARD:
@@ -66,7 +69,7 @@ func _physics_process(delta):
 func _process(delta):
 	if is_dead:
 		return
-	if Input.is_action_just_pressed("ui_attack"):
+	if Input.is_action_just_pressed("attack") and not is_attacking:
 		use_weapon()
 
 func take_damage(damage: int):

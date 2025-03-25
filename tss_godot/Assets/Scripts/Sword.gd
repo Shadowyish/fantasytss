@@ -26,7 +26,7 @@ func attack():
 	tween.set_parallel()
 	tween.tween_property(self, "rotation", rotation + 0.5, 0.5)
 	tween.tween_property(self, "rotation", rotation - 0.5, 0.5)
-	
+	await(tween.finished)
 	emit_signal("attack_finished")
 
 func _on_body_entered(body):

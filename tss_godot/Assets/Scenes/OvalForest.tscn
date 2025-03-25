@@ -18,9 +18,3 @@ position = Vector2(-55, 143)
 
 [node name="Skeleton3" parent="." instance=ExtResource("2_jbux8")]
 position = Vector2(-179, 81)
-
-[node name="Skeleton4" parent="." instance=ExtResource("2_jbux8")]
-position = Vector2(77, 98)
-
-[node name="Skeleton5" parent="." instance=ExtResource("2_jbux8")]
-position = Vector2(66, -74)

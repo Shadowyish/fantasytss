@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var speed: float = 100.0
+@export var speed: float = 1.0
 @export var damage: int = 10  # Damage dealt when colliding with the player
 @export var hp: int = 10
 @export var score: int = 10
@@ -15,19 +15,22 @@ func _ready():
 	player = GameManager.player
 	
 func _physics_process(delta):
-	if player:
-		var direction = (player.global_position - global_position).normalized()
-		# Move towards the player
-		velocity = direction * speed * delta
-		var collision = move_and_collide(velocity)
-		
-		#Do damage if we collided with the player
-		if collision:
-			var body = collision.get_collider()
-			if body.is_in_group("Player"):
-				body.take_damage(damage)
-	else:
+	if not player:
 		push_error("Enemy could not find player. Make sure GameManager has valid player instance.")
+		return
+	if is_dead:
+		return
+	
+	var direction = (player.global_position - global_position).normalized()
+	# Move towards the player
+	velocity = direction * speed * delta
+	var collision = move_and_collide(velocity)
+	
+	#Do damage if we collided with the player
+	if collision:
+		var body = collision.get_collider()
+		if body.is_in_group("Player"):
+			body.take_damage(damage)
 
 func take_damage(dmg: int):
 	if is_dead:
