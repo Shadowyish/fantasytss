@@ -8,34 +8,33 @@ extends CharacterBody2D
 var player = null
 var is_dead = false
 
-@onready var detection_area = $CollisionArea
+@onready var detection_area = $CollisionShape2D
 
 func _ready():
 	#get player reference
 	player = GameManager.player
-	# Connect the Area2D signals for when the player enters the area
-	detection_area.connect("body_entered", Callable(self, "_on_body_entered"))
-	#Just in case, here is how to track the exit of player from area...
-	#detection_area.connect("body_exited", Callable(self, "_on_body_exited"))
-
+	
 func _physics_process(delta):
 	if player:
 		var direction = (player.global_position - global_position).normalized()
 		# Move towards the player
-		velocity = direction * speed
-		move_and_slide()
+		velocity = direction * speed * delta
+		var collision = move_and_collide(velocity)
+		
+		#Do damage if we collided with the player
+		if collision:
+			var body = collision.get_collider()
+			if body.is_in_group("Player"):
+				body.take_damage(damage)
 	else:
 		push_error("Enemy could not find player. Make sure GameManager has valid player instance.")
-
-func _on_body_entered(body):
-	if body.is_in_group("players"):
-		player.take_damage(damage)
 
 func take_damage(dmg: int):
 	if is_dead:
 		# Do nothing if enemy is already dead
 		# In case if still in death animations
 		return
+	
 	hp -= dmg
 	if hp <= 0:
 		die()
@@ -45,7 +44,7 @@ func die():
 	play_death_animation()
 	GameManager.increase_score(score)
 	
-	await(get_tree().create_timer(2.0))
+	await(get_tree().create_timer(.25).timeout)
 	queue_free() #Remove from scene
 
 func play_death_animation():
