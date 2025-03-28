@@ -61,8 +61,9 @@ func _physics_process(delta):
 			Input.get_axis("right_stick_up", "right_stick_down")
 		).normalized()
 	
-	cur_weapon.position = aim_direction * cur_weapon.pixels_from_player 
-	cur_weapon.rotation = aim_direction.angle()
+	if not is_attacking:
+		cur_weapon.position = aim_direction * cur_weapon.pixels_from_player 
+		cur_weapon.rotation = aim_direction.angle()
 	
 	play_cur_animation()
 
