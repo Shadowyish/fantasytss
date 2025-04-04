@@ -6,7 +6,7 @@ extends CharacterBody2D
 @export var mana: int
 @export var cur_weapon: Node
 
-var cur_health: int = health
+var cur_health: int
 var aim_direction = Vector2.RIGHT
 var iframe_time: float = 0.67
 var is_invunerable = false
@@ -22,6 +22,8 @@ signal player_died
 @onready var anim = $Animator
 
 func _ready():
+	cur_health = health
+	
 	# timer hookups
 	add_child(iframe_timer)
 	iframe_timer.one_shot = true

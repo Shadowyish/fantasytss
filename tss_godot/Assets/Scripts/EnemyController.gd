@@ -46,6 +46,7 @@ func die():
 	is_dead = true
 	play_death_animation()
 	GameManager.increase_score(score)
+	GameManager.enemy_count -= 1
 	
 	await(get_tree().create_timer(.25).timeout)
 	queue_free() #Remove from scene
