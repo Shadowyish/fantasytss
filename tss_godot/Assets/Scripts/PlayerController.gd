@@ -2,7 +2,6 @@ extends CharacterBody2D
 
 @export var speed: float
 @export var health: int
-@export var attack_speed: int
 @export var mana: int
 @export var cur_weapon: Node
 

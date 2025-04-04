@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
-@export var speed: float = 1.0
-@export var damage: int = 10  # Damage dealt when colliding with the player
-@export var hp: int = 10
-@export var score: int = 10
+@export var speed: float
+@export var damage: int  # Damage dealt when colliding with the player
+@export var hp: int
+@export var score: int
 
 var player = null
 var is_dead = false

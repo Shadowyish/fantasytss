@@ -15,7 +15,7 @@ var is_playing = false
 
 func _process(delta):
 	if(game_mode == GameMode.Game):
-		# camera panning: Smoot follows player
+		# camera panning: Smooth follows player
 		camera.position = camera.position.lerp(GameManager.player.position, follow_speed * delta)
 		if enemy_count < 10:
 			spawn_enemies()
@@ -24,7 +24,6 @@ func _process(delta):
 			while(time_passed > 1.0):
 				time_passed -= 1
 				increase_score(5)
-		
 	
 func launch_game(map: String):
 	get_tree().change_scene_to_file("res://Assets/Scenes/"+ map)

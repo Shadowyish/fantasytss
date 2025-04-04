@@ -9,6 +9,9 @@
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 script = ExtResource("1_ipft0")
 speed = 100.0
+damage = 10
+hp = 10
+score = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("CapsuleShape2D_cddcy")
