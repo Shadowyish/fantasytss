@@ -339,11 +339,12 @@ mana = 1
 cur_weapon = NodePath("Sword")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" groups=["Player"]]
-position = Vector2(0.5, 3)
+position = Vector2(0.5, 0)
 shape = SubResource("CircleShape2D_ydc17")
 one_way_collision_margin = 0.0
 
 [node name="Animator" type="AnimatedSprite2D" parent="CharacterBody2D" groups=["Player"]]
+position = Vector2(0, -3)
 sprite_frames = SubResource("SpriteFrames_d22wd")
 animation = &"death_left"
 autoplay = "idle_right"
