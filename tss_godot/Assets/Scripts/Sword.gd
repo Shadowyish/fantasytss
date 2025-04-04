@@ -1,28 +1,28 @@
 extends Weapon
 
-@export var damage: int = 10
-@export var swing_angle = 0.0  # Angle offset for the swing
-@export var swing_speed = 20.0  # Speed of the swing
-@export var swing_radius = 30  # Distance from player
-@export var swing_duration = 0.5  # Total duration of the swing
+@export var damage: int
+@export var swing_speed: float  # Speed of the swing
+@export var swing_radius: float # Distance from player
+@export var swing_duration: float # Total duration of the swing
 
-var swinging = false
+var is_swinging = false
 var swing_timer = 0.0
 var swing_start: Vector2
+var swing_angle: float # Angle offset for the swing
 
 func attack():
-	if swinging:
+	if is_swinging:
 		return  # Prevent multiple swings
 	swing_start = position
-	swinging = true
+	is_swinging = true
 	swing_timer = 0.0
 	
 func _process(delta):
-	if swinging:
+	if is_swinging:
 		swing_timer += delta
 		var progress = swing_timer / swing_duration
 		if progress >= 1.0:
-			swinging = false
+			is_swinging = false
 			position = Vector2.ZERO  # Reset sword position
 			emit_signal("attack_finished")
 			return
