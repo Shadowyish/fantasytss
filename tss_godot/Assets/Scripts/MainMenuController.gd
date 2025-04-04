@@ -1,6 +1,7 @@
 extends Control
 
 func _ready():
+	size = get_viewport_rect().size
 	# Connect button signals
 	$VBoxContainer/StartButton.pressed.connect(_on_start_game_pressed)
 	$VBoxContainer/OptionsButton.pressed.connect(_on_options_pressed)

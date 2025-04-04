@@ -1,46 +1,59 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhte7x4mc24ly"]
+[gd_scene load_steps=2 format=3 uid="uid://b3u0jq6palkfw"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/MainMenuController.gd" id="1_1di2j"]
 
-[node name="MainMenu" type="Node2D"]
-
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -1152.0
+offset_bottom = -648.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_1di2j")
 
-[node name="Label" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = 30.0
-offset_top = 6.0
-offset_right = 252.0
-offset_bottom = 32.0
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -194.0
+offset_top = 100.0
+offset_right = 194.0
+offset_bottom = 142.0
+grow_horizontal = 2
+theme_type_variation = &"HeaderLarge"
 text = "A Fantasy TwinStick Shooter!"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
-layout_mode = 0
-offset_left = 30.0
-offset_top = 35.0
-offset_right = 252.0
-offset_bottom = 136.0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -100.0
+offset_right = 200.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="StartButton" type="Button" parent="Control/VBoxContainer"]
+[node name="StartButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_vertical = 3
 text = "Start Game"
 
-[node name="OptionsButton" type="Button" parent="Control/VBoxContainer"]
+[node name="OptionsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_vertical = 3
 text = "Options?"
 
-[node name="QuitButton" type="Button" parent="Control/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_vertical = 3
 text = "Quit"
