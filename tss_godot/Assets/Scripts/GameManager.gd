@@ -3,9 +3,9 @@ extends Node
 enum ControlType { MOUSE_KEYBOARD, GAMEPAD }
 enum GameMode {Game, Menu, Pause}
 var input_type = ControlType.MOUSE_KEYBOARD  # Default to keyboard & mouse
-var game_mode = GameMode.Game
-var player: CharacterBody2D #Spawn into scene instead of natively in scene
-var camera: Camera2D
+var game_mode = GameMode.Menu
+var player: Node2D #Spawn into scene instead of natively in scene
+var camera: Camera2D #Spawn into scene instead of natively in scene
 var follow_speed: float = 5.0
 var game_score: int = 0
 var enemy_count: int = 0
@@ -20,13 +20,15 @@ func _process(delta):
 			spawn_enemies()
 	
 func launch_game(map: String):
-	var game_scene = load("res://Assets/Scenes/"+ map).instantiate()
+	get_tree().change_scene_to_file("res://Assets/Scenes/"+ map)
 	# TODO: Add Logic for player Classes
+	await get_tree().process_frame
+	
 	player = load("res://Assets/Prefabs/Warrior.tscn").instantiate()
 	camera = load("res://Assets/Prefabs/MainCamera.tscn").instantiate()
-	game_scene.add_child(player)
-	game_scene.add_child(camera)
-	get_tree().change_scene_to_packed(game_scene)
+	get_tree().current_scene.add_child(player)
+	get_tree().current_scene.add_child(camera)
+	game_mode = GameMode.Game
 	
 func spawn_enemies():
 	var edge = randi() % 4

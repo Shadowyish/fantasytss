@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://bh6ptbss27fej"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/EnemyController.gd" id="1_no1gd"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cddcy"]
+radius = 23.0
+height = 50.0
+
+[node name="Zombie" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("1_no1gd")
+speed = 50.0
+damage = 20
+hp = 50
+score = 100
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CapsuleShape2D_cddcy")
+
+[node name="Polygon2D" type="Polygon2D" parent="CharacterBody2D"]
+modulate = Color(0.945098, 0.517647, 0.764706, 1)
+position = Vector2(-57, -13)
+scale = Vector2(0.189108, 0.120466)
+color = Color(0.950353, 0.53465, 0.832664, 1)
+polygon = PackedVector2Array(396, 57, 376, 305, 182, 153, 248, -39, 339.934, -60.0076)

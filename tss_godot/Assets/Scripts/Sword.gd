@@ -1,34 +1,40 @@
 extends Weapon
 
 @export var damage: int = 10
+@export var swing_angle = 0.0  # Angle offset for the swing
+@export var swing_speed = 20.0  # Speed of the swing
+@export var swing_radius = 30  # Distance from player
+@export var swing_timer = 0.0
+@export var swing_duration = 0.5  # Total duration of the swing
 
-func _ready():
-	$Area2D.body_entered.connect(_on_body_entered)
+var swinging = false
 
 func attack():
-	var start_position = position
-	var arc_end_position = start_position + Vector2(100, 0).rotated(rotation)  # End position of the arc
-	var arc_mid_position = start_position + Vector2(50, 50).rotated(rotation)  # Midway point of the arc
+	if swinging:
+		return  # Prevent multiple swings
+	swinging = true
+	swing_timer = 0.0
 	
-	# Animate the sword to swing in an arc, using tweening.
-	var tween = create_tween()
-	# 1st phase: moving towards the midway point
-	tween.set_trans(Tween.TRANS_QUAD)
-	tween.tween_property(self, "position", arc_mid_position, 0.25)
+func _process(delta):
+	if swinging:
+		swing_timer += delta
+		var progress = swing_timer / swing_duration
+		if progress >= 1.0:
+			swinging = false
+			position = Vector2.ZERO  # Reset sword position
+			emit_signal("attack_finished")
+			return
+		# Swing from -45° to +45°
+		swing_angle = lerp(-PI / 4, PI / 4, progress)
+		#Actually Swing
+		position = Vector2(swing_radius, 0).rotated(swing_angle)
+		# Rotate sword to match movement
+		rotation = swing_angle
+		
 	
-	# 2nd phase: moving towards the end of the arc
-	tween.tween_property(self, "position", arc_end_position, 0.5)
-
-	# 3rd phase: returning the sword to the original position
-	tween.tween_property(self, "position", start_position, 0.25)
+func _ready():
+	$Area2D.body_entered.connect(_on_body_entered)
 	
-	#Rotate the sword slightly simletaneously while swinging
-	tween.set_parallel()
-	tween.tween_property(self, "rotation", rotation + 0.5, 0.5)
-	tween.tween_property(self, "rotation", rotation - 0.5, 0.5)
-	await(tween.finished)
-	emit_signal("attack_finished")
-
 func _on_body_entered(body):
 	if not body.is_in_group("Player"):
 		body.take_damage(damage)

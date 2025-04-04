@@ -6,7 +6,6 @@ extends CharacterBody2D
 @export var mana: int
 @export var cur_weapon: Node
 
-
 var cur_health: int = health
 var aim_direction = Vector2.RIGHT
 var iframe_time: float = 0.67
@@ -67,7 +66,7 @@ func _physics_process(delta):
 	
 	play_cur_animation()
 
-func _process(delta):
+func _process(_delta):
 	if is_dead:
 		return
 	if Input.is_action_just_pressed("attack") and not is_attacking:
