@@ -7,6 +7,7 @@ var game_mode = GameMode.Menu
 var player: Node2D #Spawn into scene instead of natively in scene
 var camera: Camera2D #Spawn into scene instead of natively in scene
 var follow_speed: float = 5.0
+var time_passed: float = 0.0
 var game_score: int = 0
 var enemy_count: int = 0
 var spawn_offset: int = 100 # How many pixels offset from the camera border spawns for enemies should occur
@@ -18,6 +19,12 @@ func _process(delta):
 		camera.position = camera.position.lerp(GameManager.player.position, follow_speed * delta)
 		if enemy_count < 10:
 			spawn_enemies()
+		if player.cur_health > 0:
+			time_passed += delta
+			while(time_passed > 1.0):
+				time_passed -= 1
+				increase_score(5)
+		
 	
 func launch_game(map: String):
 	get_tree().change_scene_to_file("res://Assets/Scenes/"+ map)
