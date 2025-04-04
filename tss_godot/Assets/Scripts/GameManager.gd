@@ -10,7 +10,7 @@ var follow_speed: float = 5.0
 var time_passed: float = 0.0
 var game_score: int = 0
 var enemy_count: int = 0
-var spawn_offset: int = -200 # How many pixels offset from the camera border spawns for enemies should occur
+var spawn_offset: int = -150 # How many pixels offset from the camera border spawns for enemies should occur
 var is_playing = false
 
 func _process(delta):
