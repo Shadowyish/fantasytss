@@ -41,7 +41,7 @@ func launch_game(map: String):
 	# TODO: Add Logic for player Classes
 	await get_tree().process_frame
 	
-	player = load("res://Assets/Prefabs/Warrior.tscn").instantiate()
+	player = load("res://Assets/Prefabs/Archer.tscn").instantiate()
 	camera = load("res://Assets/Prefabs/MainCamera.tscn").instantiate()
 	get_tree().current_scene.add_child(player)
 	get_tree().current_scene.add_child(camera)
