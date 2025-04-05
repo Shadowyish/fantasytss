@@ -168,7 +168,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_igo7x")
 }],
-"loop": true,
+"loop": false,
 "name": &"hit_left",
 "speed": 5.0
 }, {
@@ -185,7 +185,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_42aqx")
 }],
-"loop": true,
+"loop": false,
 "name": &"hit_right",
 "speed": 5.0
 }, {
@@ -257,7 +257,5 @@ shape = SubResource("CapsuleShape2D_cddcy")
 position = Vector2(0, -8)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_1jmfj")
-animation = &"spawn_right"
+animation = &"hit_right"
 autoplay = "spawn_right"
-frame = 3
-frame_progress = 1.0
