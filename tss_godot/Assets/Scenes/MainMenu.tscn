@@ -1,6 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://b3u0jq6palkfw"]
+[gd_scene load_steps=8 format=3 uid="uid://b3u0jq6palkfw"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/MainMenuController.gd" id="1_1di2j"]
+[ext_resource type="Texture2D" uid="uid://biphjaubvbhj1" path="res://Assets/SpriteSheets/lancelot_.png" id="2_hjmf8"]
+[ext_resource type="Texture2D" uid="uid://dwxcpf4je5ghg" path="res://Assets/SpriteSheets/robinHood_.png" id="3_ct1lo"]
+[ext_resource type="Texture2D" uid="uid://ce5txl102oq68" path="res://Assets/SpriteSheets/merlin_.png" id="4_201ov"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjp33"]
+atlas = ExtResource("2_hjmf8")
+region = Rect2(105, 138, 13, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mj2c6"]
+atlas = ExtResource("3_ct1lo")
+region = Rect2(77, 4, 14, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41dgq"]
+atlas = ExtResource("4_201ov")
+region = Rect2(9, 9, 14, 19)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -55,3 +70,60 @@ text = "Options?"
 layout_mode = 2
 size_flags_vertical = 3
 text = "Quit"
+
+[node name="CharacterSelectPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSelectPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -137.0
+offset_top = -136.0
+offset_right = 137.0
+offset_bottom = 136.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Warrior" type="Button" parent="CharacterSelectPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = " Warrior"
+icon = SubResource("AtlasTexture_fjp33")
+icon_alignment = 2
+expand_icon = true
+
+[node name="Archer" type="Button" parent="CharacterSelectPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Archer"
+icon = SubResource("AtlasTexture_mj2c6")
+icon_alignment = 2
+expand_icon = true
+
+[node name="Mage" type="Button" parent="CharacterSelectPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Mage"
+icon = SubResource("AtlasTexture_41dgq")
+icon_alignment = 2
+expand_icon = true
+
+[node name="Label" type="Label" parent="CharacterSelectPanel"]
+layout_mode = 0
+offset_left = -118.0
+offset_top = -160.0
+offset_right = 119.0
+offset_bottom = -134.0
+text = "Whoose fate shall you peer at?"

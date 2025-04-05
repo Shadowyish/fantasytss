@@ -55,6 +55,8 @@ func take_damage(dmg: int):
 		return
 	is_hit = true
 	anim.play("hit_right" if is_facing_right else "hit_left")
+	await(anim.animation_finished)
+	is_hit = false
 
 func die():
 	is_dead = true

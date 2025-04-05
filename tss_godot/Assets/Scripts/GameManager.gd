@@ -36,12 +36,12 @@ func _process(delta):
 			Engine.time_scale = 0.0
 			game_mode = GameMode.Pause
 	
-func launch_game(map: String):
+func launch_game(map: String, character: String):
 	get_tree().change_scene_to_file("res://Assets/Scenes/"+ map)
 	# TODO: Add Logic for player Classes
 	await get_tree().process_frame
 	
-	player = load("res://Assets/Prefabs/Archer.tscn").instantiate()
+	player = load("res://Assets/Prefabs/" + character).instantiate()
 	camera = load("res://Assets/Prefabs/MainCamera.tscn").instantiate()
 	get_tree().current_scene.add_child(player)
 	get_tree().current_scene.add_child(camera)
