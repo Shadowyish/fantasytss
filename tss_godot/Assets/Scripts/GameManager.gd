@@ -73,8 +73,6 @@ func spawn_enemies():
 	
 func increase_score(score: int):
 	game_score += score
-	push_warning("Score added: " + str(score))
-	push_warning("Score now totals: " + str(game_score))
 	
 func increase_difficulty():
 	enemy_max += 5

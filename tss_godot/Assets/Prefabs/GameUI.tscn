@@ -49,8 +49,50 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Score Total: 0"
 
-[node name="Panel" type="Panel" parent="CanvasLayer"]
-offset_left = 93.0
-offset_top = 110.0
-offset_right = 1069.0
-offset_bottom = 563.0
+[node name="PausePanel" type="Panel" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.25
+anchor_right = 0.75
+anchor_bottom = 0.75
+offset_left = -10.0
+offset_right = -10.0
+
+[node name="Label" type="Label" parent="CanvasLayer/PausePanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.15
+anchor_right = 0.5
+anchor_bottom = 0.15
+offset_left = -31.0
+offset_right = 31.0
+offset_bottom = 26.0
+grow_horizontal = 2
+text = "PAUSED"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PausePanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -124.5
+offset_top = -46.0
+offset_right = 124.5
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResumeButton" type="Button" parent="CanvasLayer/PausePanel/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/PausePanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/PausePanel/VBoxContainer"]
+layout_mode = 2
+text = "Quit to Main Menu"
