@@ -70,7 +70,7 @@ func _physics_process(delta):
 func _process(_delta):
 	if is_dead or GameManager.game_mode == GameManager.GameMode.Pause:
 		return
-	if Input.is_action_just_pressed("attack") and not is_attacking:
+	if Input.is_action_pressed("attack") and not is_attacking:
 		use_weapon()
 
 func take_damage(damage: int):
