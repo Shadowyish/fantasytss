@@ -101,3 +101,12 @@ func get_next_enemy():
 				return load("res://Assets/Prefabs/Skeleton.tscn").instantiate()
 			2:
 				return load("res://Assets/Prefabs/Wraith.tscn").instantiate()
+	
+func resume_game():
+	game_mode = GameMode.Game
+	Engine.time_scale = 1.0
+
+func quit_game():
+	#TODO: Handle Save Data Logic
+	game_mode = GameMode.Menu
+	get_tree().change_scene_to_file("res://Assets/Scenes/MainMenu.tscn")
