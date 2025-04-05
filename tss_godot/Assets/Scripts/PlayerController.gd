@@ -37,7 +37,7 @@ func _ready():
 	GameManager.player = self
 
 func _physics_process(delta):
-	if is_dead:
+	if is_dead or GameManager.game_mode == GameManager.GameMode.Pause:
 		return
 	var input_vector = Vector2.ZERO
 	# Get movement input then normalize to prevent speed boost
@@ -68,7 +68,7 @@ func _physics_process(delta):
 	play_cur_animation()
 
 func _process(_delta):
-	if is_dead:
+	if is_dead or GameManager.game_mode == GameManager.GameMode.Pause:
 		return
 	if Input.is_action_just_pressed("attack") and not is_attacking:
 		use_weapon()
