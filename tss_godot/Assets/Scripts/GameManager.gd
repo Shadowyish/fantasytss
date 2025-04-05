@@ -37,15 +37,19 @@ func _process(delta):
 			game_mode = GameMode.Pause
 	
 func launch_game(map: String, character: String):
+	#Load Map for Game
 	get_tree().change_scene_to_file("res://Assets/Scenes/"+ map)
-	# TODO: Add Logic for player Classes
 	await get_tree().process_frame
 	
+	#Load player and camera
 	player = load("res://Assets/Prefabs/" + character).instantiate()
 	camera = load("res://Assets/Prefabs/MainCamera.tscn").instantiate()
 	get_tree().current_scene.add_child(player)
 	get_tree().current_scene.add_child(camera)
+	
 	game_mode = GameMode.Game
+	#ensure the game can run when launching the game
+	Engine.time_scale = 1.0
 	
 func spawn_enemies():
 	var edge = randi() % 4
