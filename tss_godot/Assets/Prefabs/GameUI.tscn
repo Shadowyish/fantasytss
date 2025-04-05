@@ -48,3 +48,9 @@ offset_bottom = 13.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Score Total: 0"
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+offset_left = 93.0
+offset_top = 110.0
+offset_right = 1069.0
+offset_bottom = 563.0

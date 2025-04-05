@@ -12,8 +12,10 @@ var game_score: int = 0
 var score_per_second: int = 5
 var enemy_count: int = 0
 var enemy_max: int = 10 # Max enemies at one time, difficulty increases this
-var spawn_offset: int = -50 # How many pixels offset from the camera border spawns for enemies should occur
-var next_threshold_cap: int = 2500 # the score at which the game first increases difficulty
+var spawn_offset: int = -100 # How many pixels offset from the camera border spawns for enemies should occur
+var next_threshold_cap: int = 1000 # the score at which the game first increases difficulty
+var zombie_threshold: int = 2000 # Second threshold, used to control what score zombies can spawn
+var wraith_threshold: int = 5750 # Fourth threshold, used to control what score wraiths can spawn
 var is_playing = false
 
 func _process(delta):
@@ -21,7 +23,8 @@ func _process(delta):
 		# camera panning: Smooth follows player
 		camera.position = camera.position.lerp(GameManager.player.position, follow_speed * delta)
 		if enemy_count < enemy_max:
-			spawn_enemies()
+			for i in randi_range(1, enemy_max - enemy_count):
+				spawn_enemies()
 		if player.cur_health > 0:
 			time_passed += delta
 			while(time_passed > 1.0):
@@ -29,6 +32,9 @@ func _process(delta):
 				increase_score(score_per_second)
 		if game_score > next_threshold_cap:
 			increase_difficulty()
+		if Input.is_action_just_pressed("pause"):
+			Engine.time_scale = 0.0
+			game_mode = GameMode.Pause
 	
 func launch_game(map: String):
 	get_tree().change_scene_to_file("res://Assets/Scenes/"+ map)
@@ -71,17 +77,16 @@ func increase_score(score: int):
 	push_warning("Score now totals: " + str(game_score))
 	
 func increase_difficulty():
-	enemy_max += 2
-	spawn_offset -= 5
+	enemy_max += 5
 	score_per_second += 5
-	next_threshold_cap += next_threshold_cap * .5 + 1250
+	next_threshold_cap += next_threshold_cap * .5 + 500
 	
 func get_next_enemy():
 	#Spawn only skeletons at the start
-	if next_threshold_cap <= 2500:
+	if next_threshold_cap <= 2000:
 		return load("res://Assets/Prefabs/Skeleton.tscn").instantiate()
 	#Once first threshold reached you can spawn zombies too
-	elif next_threshold_cap <= 5000:
+	elif next_threshold_cap <= 5750:
 		var enemy_rand = randi() % 2
 		match enemy_rand:
 			0:

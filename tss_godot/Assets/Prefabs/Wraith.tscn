@@ -258,4 +258,4 @@ position = Vector2(0, -4)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_jkuml")
 animation = &"run_left"
-frame_progress = 0.550923
+frame_progress = 0.239874
