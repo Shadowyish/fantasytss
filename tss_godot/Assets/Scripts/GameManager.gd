@@ -85,7 +85,7 @@ func increase_score(score: int):
 func increase_difficulty():
 	enemy_max += 5
 	score_per_second += 5
-	next_threshold_cap += next_threshold_cap * .5 + 500
+	next_threshold_cap += int(next_threshold_cap * .5) + 500
 	
 func get_next_enemy():
 	#Spawn only skeletons at the start
