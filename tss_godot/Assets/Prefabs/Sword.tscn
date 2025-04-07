@@ -12,8 +12,8 @@ damage = 25
 swing_speed = 30.0
 swing_radius = 30.0
 swing_duration = 0.45
-special_regen_amount = 5
-special_regen_time = 2.0
+special_regen_amount = 10
+special_regen_time = 3.0
 special_regen_tick = 0.5
 pixels_from_player = 15
 

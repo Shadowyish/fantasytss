@@ -1,6 +1,7 @@
 extends Control
 
 @onready var hp_label = $CanvasLayer/ColorRect/HP
+@onready var mana_label = $CanvasLayer/ColorRect/Mana
 @onready var score_label = $CanvasLayer/ColorRect/Score
 @onready var difficulty_threshold_label = $CanvasLayer/ColorRect/Difficulty
 @onready var pause_panel = $CanvasLayer/PausePanel
@@ -13,8 +14,10 @@ func _ready():
 
 func _process(_delta):
 	hp_label.text =  "HP: " + str(GameManager.player.cur_health) if GameManager.player.cur_health > 0 else "HP: DEAD"
+	mana_label.text = "Mana: " + str(GameManager.player.cur_mana)
 	score_label.text = "Current Score: " + str(GameManager.game_score)
 	difficulty_threshold_label.text = "Next Difficulty Threshold: " + str(GameManager.next_threshold_cap)
+	#TODO: Change to a signal put out by the GameManager
 	if GameManager.game_mode == GameManager.GameMode.Pause:
 		pause_panel.visible = true
 	

@@ -24,12 +24,13 @@ func attack():
 	swing_timer = 0.0
 	
 func special():
+	#TODO: Add Animations to Special
 	hp_regen_ticker.start(special_regen_tick)
 	hp_regen_timer.start(special_regen_time)
+	emit_signal("attack_finished")
 	
 func end_special():
 	hp_regen_ticker.stop()
-	emit_signal("attack_finished")
 	
 func _process(delta):
 	if is_swinging:
