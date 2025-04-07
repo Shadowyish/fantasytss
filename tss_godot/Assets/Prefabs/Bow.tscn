@@ -41,6 +41,7 @@ animations = [{
 
 [node name="Bow" type="Node2D"]
 script = ExtResource("1_hbr5t")
+special_time = 2.0
 pixels_from_player = 20
 
 [node name="Animator" type="AnimatedSprite2D" parent="."]

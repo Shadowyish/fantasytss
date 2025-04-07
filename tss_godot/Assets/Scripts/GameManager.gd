@@ -4,7 +4,7 @@ enum ControlType { MOUSE_KEYBOARD, GAMEPAD }
 enum GameMode {Game, Menu, Pause}
 var input_type = ControlType.MOUSE_KEYBOARD  # Default to keyboard & mouse
 var game_mode = GameMode.Menu
-var player: Node2D #Spawn into scene instead of natively in scene
+var player: Node #Spawn into scene instead of natively in scene
 var camera: Camera2D #Spawn into scene instead of natively in scene
 var follow_speed: float = 5.0
 var time_passed: float = 0.0
@@ -16,7 +16,6 @@ var spawn_offset: int = -100 # How many pixels offset from the camera border spa
 var next_threshold_cap: int = 1000 # the score at which the game first increases difficulty
 var zombie_threshold: int = 2000 # Second threshold, used to control what score zombies can spawn
 var wraith_threshold: int = 5750 # Fourth threshold, used to control what score wraiths can spawn
-var is_playing = false
 
 func _process(delta):
 	if(game_mode == GameMode.Game):
@@ -47,9 +46,14 @@ func launch_game(map: String, character: String):
 	get_tree().current_scene.add_child(player)
 	get_tree().current_scene.add_child(camera)
 	
-	game_mode = GameMode.Game
-	#ensure the game can run when launching the game
+	#ensure the game is set up properly
+	#reset game stats to defaults
 	Engine.time_scale = 1.0
+	game_score = 0
+	enemy_count = 0
+	score_per_second = 5
+	enemy_max = 10
+	game_mode = GameMode.Game
 	
 func spawn_enemies():
 	var edge = randi() % 4

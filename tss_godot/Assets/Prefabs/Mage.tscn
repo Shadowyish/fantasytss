@@ -329,21 +329,19 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Mage" type="Node2D"]
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("cur_weapon") groups=["Player"]]
+[node name="Mage" type="CharacterBody2D" node_paths=PackedStringArray("cur_weapon") groups=["Player"]]
 script = ExtResource("1_1051h")
 speed = 100.0
 health = 50
 mana = 50
 cur_weapon = NodePath("Staff")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" groups=["Player"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
 position = Vector2(0.5, 0)
 shape = SubResource("CircleShape2D_ydc17")
 one_way_collision_margin = 0.0
 
-[node name="Animator" type="AnimatedSprite2D" parent="CharacterBody2D"]
+[node name="Animator" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -3)
 sprite_frames = SubResource("SpriteFrames_d22wd")
 animation = &"death_left"
@@ -351,5 +349,5 @@ autoplay = "idle_right"
 frame = 3
 frame_progress = 1.0
 
-[node name="Staff" parent="CharacterBody2D" instance=ExtResource("3_ika7i")]
+[node name="Staff" parent="." instance=ExtResource("3_ika7i")]
 position = Vector2(35, 0)

@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var mana: int
 @export var cur_weapon: Node
 
+var cur_mana: int
 var cur_health: int
 var aim_direction = Vector2.RIGHT
 var iframe_time: float = 0.67
@@ -22,6 +23,7 @@ signal player_died
 
 func _ready():
 	cur_health = health
+	cur_mana = mana
 	
 	# timer hookups
 	add_child(iframe_timer)
@@ -32,7 +34,7 @@ func _ready():
 	anim.animation_finished.connect(_on_animation_finished)
 	
 	# Subscribe to weapon listener
-	cur_weapon.attack_finished.connect(_on_attack_done)
+	cur_weapon.connect("attack_finished", _on_attack_done)
 	
 	GameManager.player = self
 
@@ -70,8 +72,12 @@ func _physics_process(delta):
 func _process(_delta):
 	if is_dead or GameManager.game_mode == GameManager.GameMode.Pause:
 		return
-	if Input.is_action_pressed("attack") and not is_attacking:
+	if Input.is_action_pressed("attack"):
 		use_weapon()
+	if Input.is_action_just_pressed("special"):
+		if cur_mana >= 5:
+			cur_mana -= 5
+			use_weapon_special()
 
 func take_damage(damage: int):
 	if is_dead or is_invunerable:
@@ -86,6 +92,9 @@ func take_damage(damage: int):
 		anim.play("hit_right" if is_facing_right else "hit_left")
 		#start timer
 		iframe_timer.start(iframe_time)
+
+func heal(hp: int):
+	cur_health = clampi(cur_health + hp, 0, health)
 
 func use_weapon():
 	if is_attacking:
@@ -123,3 +132,9 @@ func play_cur_animation():
 		anim.play("idle_right" if is_facing_right else "idle_left")
 	else:
 		anim.play("run_right" if is_facing_right else "run_left")
+
+func use_weapon_special():
+	if is_attacking:
+		return
+	is_attacking = true
+	cur_weapon.special()
