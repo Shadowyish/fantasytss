@@ -13,8 +13,8 @@ func _ready():
 	quit_button.pressed.connect(_on_quit_button)
 
 func _process(_delta):
-	hp_label.text =  "HP: " + str(GameManager.player.cur_health) if GameManager.player.cur_health > 0 else "HP: DEAD"
-	mana_label.text = "Mana: " + str(GameManager.player.cur_mana)
+	hp_label.text =  "HP: " + (str(GameManager.player.cur_health) + "/" + str(GameManager.player.health)) if GameManager.player.cur_health > 0 else "HP: DEAD"
+	mana_label.text = "Mana: " + str(GameManager.player.cur_mana) + "/" + str(GameManager.player.mana)
 	score_label.text = "Current Score: " + str(GameManager.game_score)
 	difficulty_threshold_label.text = "Next Difficulty Threshold: " + str(GameManager.next_threshold_cap)
 	#TODO: Change to a signal put out by the GameManager

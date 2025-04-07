@@ -22,7 +22,7 @@ func attack():
 func special():
 	GameManager.player.speed *= 2
 	special_timer.start(special_time)
+	emit_signal("attack_finished")
 	
 func end_special():
 	GameManager.player.speed /=2
-	emit_signal("attack_finished")
