@@ -4,4 +4,4 @@
 
 [node name="OvalForest" type="Node2D"]
 
-[node name="Control" parent="." instance=ExtResource("1_gbapl")]
+[node name="GameUI" parent="." instance=ExtResource("1_gbapl")]

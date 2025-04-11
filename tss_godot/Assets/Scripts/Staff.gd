@@ -39,3 +39,10 @@ func _ready():
 func _on_body_entered(body):
 	if not body.is_in_group("Player"):
 		body.take_damage(damage)
+
+func special():
+	var fireball = load("res://Assets/Prefabs/Fireball.tscn").instantiate()
+	fireball.global_position = global_position
+	fireball.fired_angle = rotation
+	get_tree().current_scene.add_child(fireball)
+	emit_signal("attack_finished")

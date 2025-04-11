@@ -75,8 +75,8 @@ func _process(_delta):
 	if Input.is_action_pressed("attack"):
 		use_weapon()
 	if Input.is_action_just_pressed("special"):
-		if cur_mana >= 5:
-			cur_mana -= 5
+		if cur_mana >= cur_weapon.mana_cost:
+			cur_mana -= cur_weapon.mana_cost
 			use_weapon_special()
 
 func take_damage(damage: int):

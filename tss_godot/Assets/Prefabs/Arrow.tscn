@@ -9,10 +9,6 @@ size = Vector2(4, 14)
 [node name="Arrow" type="Node2D"]
 rotation = 1.5708
 script = ExtResource("1_k6u5i")
-arrow_speed = 300.0
-pierce_limit = 5
-damage = 10
-destroy_time = 5.0
 
 [node name="Area2D" type="Area2D" parent="."]
 

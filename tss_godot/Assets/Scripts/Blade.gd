@@ -7,6 +7,7 @@ extends Weapon
 @export var special_regen_amount: int # amount special should heal each tick
 @export var special_regen_time: float # How long should the special last
 @export var special_regen_tick: float # time between ticks
+@export var mana_cost: int #amount of mana the special costs
 
 var is_swinging = false
 var swing_timer: float #used internally to see how long we've been swinging
