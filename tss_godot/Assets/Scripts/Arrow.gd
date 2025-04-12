@@ -1,10 +1,10 @@
 extends Node2D
 @export var arrow_speed: float
-@export var pierce_limit: int
 @export var damage: int
 @export var destroy_time: float #the amount of time till the arrow should be destroyed
 
 var fired_angle: float # angle for arrow to travel
+var pierce_limit: int = 0 # Intialized by bow on object creation
 
 @onready var destroy_timer = Timer.new()
 

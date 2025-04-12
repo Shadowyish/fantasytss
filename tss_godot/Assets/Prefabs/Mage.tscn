@@ -332,9 +332,9 @@ animations = [{
 [node name="Mage" type="CharacterBody2D" node_paths=PackedStringArray("cur_weapon") groups=["Player"]]
 script = ExtResource("1_1051h")
 speed = 100.0
-health = 50
+health = 100
 mana = 50
-cur_weapon = NodePath("Staff")
+cur_weapon = NodePath("FireBallStaff")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
 position = Vector2(0.5, 0)
@@ -349,5 +349,5 @@ autoplay = "idle_right"
 frame = 3
 frame_progress = 1.0
 
-[node name="Staff" parent="." instance=ExtResource("3_ika7i")]
-position = Vector2(35, 0)
+[node name="FireBallStaff" parent="." instance=ExtResource("3_ika7i")]
+position = Vector2(37.375, 5.625)

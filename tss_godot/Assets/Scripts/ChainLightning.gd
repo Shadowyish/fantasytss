@@ -32,6 +32,7 @@ func _on_bolt_timeout():
 
 func _on_body_entered(body):
 	if not body.is_in_group("Player"):
+		destroy_timer.stop()
 		hit_targets = [body]
 		has_hit = true
 		anim.visible = false
@@ -47,6 +48,7 @@ func chain():
 			animate_lightning(last_target, new_target)
 		else:
 			break
+	queue_free()
 	
 func find_closest_enemy_not_in(targets_to_ignore: Array, starting_position: Vector2)-> CharacterBody2D: 
 	var closest_body: CharacterBody2D

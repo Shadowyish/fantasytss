@@ -16,6 +16,7 @@ special_regen_amount = 10
 special_regen_time = 3.0
 special_regen_tick = 0.5
 pixels_from_player = 15
+mana_cost = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_624yd")

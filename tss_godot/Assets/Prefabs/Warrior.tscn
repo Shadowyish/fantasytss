@@ -332,7 +332,7 @@ animations = [{
 [node name="Warrior" type="CharacterBody2D" node_paths=PackedStringArray("cur_weapon") groups=["Player"]]
 script = ExtResource("1_bbnkl")
 speed = 100.0
-health = 200
+health = 300
 mana = 10
 cur_weapon = NodePath("Sword")
 

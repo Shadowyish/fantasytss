@@ -93,12 +93,12 @@ animations = [{
 }],
 "loop": false,
 "name": &"explode",
-"speed": 5.0
+"speed": 16.0
 }]
 
 [node name="Fireball" type="Node2D"]
 script = ExtResource("1_u0bx5")
-speed = 100.0
+speed = 300.0
 damage = 25
 destroy_time = 5.0
 
