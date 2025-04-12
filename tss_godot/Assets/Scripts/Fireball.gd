@@ -34,5 +34,5 @@ func explode():
 	for body in explosion_radius.get_overlapping_bodies():
 		if body.has_method("take_damage"):
 			body.take_damage(damage)
-	anim.play_animation("Explode")
+	anim.play_animation("explode")
 	await(anim.animation_finished)

@@ -34,6 +34,7 @@ func _on_body_entered(body):
 	if not body.is_in_group("Player"):
 		hit_targets = [body]
 		has_hit = true
+		anim.visible = false
 		chain()
 
 func chain():
@@ -74,6 +75,7 @@ func animate_lightning(start_position: Vector2, end_position: Vector2):
 			pos += Vector2(randf() - 0.5, randf() - 0.5) * 20  # Random jagged offset
 		points.append(pos)
 	line.points = points
+	global_position = end_position
 
 	# Remove after short delay
 	await get_tree().create_timer(0.15).timeout
