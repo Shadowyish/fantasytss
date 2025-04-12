@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://d1j6klwny8dpt"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/Staff.gd" id="1_1pu4o"]
+[ext_resource type="Script" path="res://Assets/Scripts/FireBallStaff.gd" id="1_yxvuh"]
 [ext_resource type="Texture2D" uid="uid://i6hsun6hp5x4" path="res://Assets/SpriteSheets/staff_ [merlin].png" id="2_hextg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g8v8v"]
 size = Vector2(6, 24)
 
-[node name="Staff" type="Node2D"]
-script = ExtResource("1_1pu4o")
+[node name="FireBallStaff" type="Node2D"]
+script = ExtResource("1_yxvuh")
 damage = 15
 swing_speed = 20.0
 swing_radius = 60.0
