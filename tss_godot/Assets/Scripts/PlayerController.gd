@@ -75,9 +75,7 @@ func _process(_delta):
 	if Input.is_action_pressed("attack"):
 		use_weapon()
 	if Input.is_action_just_pressed("special"):
-		if cur_mana >= cur_weapon.mana_cost:
-			cur_mana -= cur_weapon.mana_cost
-			use_weapon_special()
+		use_weapon_special()
 
 func take_damage(damage: int):
 	if is_dead or is_invunerable:
@@ -95,6 +93,9 @@ func take_damage(damage: int):
 
 func heal(hp: int):
 	cur_health = clampi(cur_health + hp, 0, health)
+
+func gain_mana(m: int):
+	cur_mana = clampi(cur_mana + m, 0, mana)
 
 func use_weapon():
 	if is_attacking:
@@ -134,7 +135,8 @@ func play_cur_animation():
 		anim.play("run_right" if is_facing_right else "run_left")
 
 func use_weapon_special():
-	if is_attacking:
+	if is_attacking or cur_mana < cur_weapon.mana_cost:
 		return
 	is_attacking = true
+	cur_mana -= cur_weapon.mana_cost
 	cur_weapon.special()

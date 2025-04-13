@@ -11,16 +11,24 @@ var time_passed: float = 0.0
 var game_score: int = 0
 var score_per_second: int = 5
 var enemy_count: int = 0
+var mana_pickup_count: int = 0
+var score_pickup_count: int = 0
+var pickup_timer: Timer
+var pickup_time: float = 10.0
 var enemy_max: int = 10 # Max enemies at one time, difficulty increases this
 var spawn_offset: int = -100 # How many pixels offset from the camera border spawns for enemies should occur
 var next_threshold_cap: int = 1000 # the score at which the game first increases difficulty
 var zombie_threshold: int = 2000 # Second threshold, used to control what score zombies can spawn
 var wraith_threshold: int = 5750 # Fourth threshold, used to control what score wraiths can spawn
+var max_camera_threshold: float = 256.0
+var min_camera_threshold: float = -256.0
 
 func _process(delta):
 	if(game_mode == GameMode.Game):
 		# camera panning: Smooth follows player
 		camera.position = camera.position.lerp(GameManager.player.position, follow_speed * delta)
+		camera.position.x = clamp(camera.position.x, min_camera_threshold, max_camera_threshold)
+		camera.position.y = clamp(camera.position.y, min_camera_threshold, max_camera_threshold)
 		if enemy_count < enemy_max:
 			for i in randi_range(1, enemy_max - enemy_count):
 				spawn_enemies()
@@ -34,7 +42,15 @@ func _process(delta):
 		if Input.is_action_just_pressed("pause"):
 			Engine.time_scale = 0.0
 			game_mode = GameMode.Pause
-	
+
+func _on_pickup_timeout():
+	if mana_pickup_count < 10:
+		for i in randi_range(1, 10 - mana_pickup_count):
+			spawn_mana_pickups()
+	if score_pickup_count < 5:
+		for i in randi_range(1, 5 - score_pickup_count):
+			spawn_score_pickups()
+
 func launch_game(map: String, character: String):
 	#Load Map for Game
 	get_tree().change_scene_to_file("res://Assets/Scenes/"+ map)
@@ -54,7 +70,43 @@ func launch_game(map: String, character: String):
 	score_per_second = 5
 	enemy_max = 10
 	game_mode = GameMode.Game
+	pickup_timer = Timer.new()
+	get_tree().current_scene.add_child(pickup_timer)
+	pickup_timer.connect("timeout", _on_pickup_timeout)
+	pickup_timer.start(pickup_time)
+
+func spawn_mana_pickups():
+	var viewport_size = camera.get_viewport_rect().size
+	var spawn_position = Vector2.ZERO
+	# generate somewhere on the screen!
+	spawn_position = Vector2(randf_range(camera.global_position.x - viewport_size.x / 2,
+	 		camera.global_position.x + viewport_size.x / 2), 
+			randf_range(camera.global_position.y - viewport_size.y / 2,
+			camera.global_position.y + viewport_size.y / 2))
+	var mana_crystal = load("res://Assets/Prefabs/ManaCrystal.tscn").instantiate()
+	# make sure pickups don't get locked behind the camera lock
+	spawn_position.x = clamp(spawn_position.x, min_camera_threshold, max_camera_threshold)
+	spawn_position.y = clamp(spawn_position.y, min_camera_threshold, max_camera_threshold)
+	mana_crystal.position = spawn_position
+	get_tree().current_scene.add_child(mana_crystal)
+	mana_pickup_count += 1
 	
+func spawn_score_pickups():
+	var viewport_size = camera.get_viewport_rect().size
+	var spawn_position = Vector2.ZERO
+	# generate somewhere on the screen!
+	spawn_position = Vector2(randf_range(camera.global_position.x - viewport_size.x / 2,
+			camera.global_position.x + viewport_size.x / 2), 
+			randf_range(camera.global_position.y - viewport_size.y / 2,
+			camera.global_position.y + viewport_size.y / 2))
+	var pickup = load("res://Assets/Prefabs/ScorePickup.tscn").instantiate()
+	# make sure pickups don't get locked behind the camera lock
+	spawn_position.x = clamp(spawn_position.x, min_camera_threshold, max_camera_threshold)
+	spawn_position.y = clamp(spawn_position.y, min_camera_threshold, max_camera_threshold)
+	pickup.position = spawn_position
+	get_tree().current_scene.add_child(pickup)
+	score_pickup_count += 1
+
 func spawn_enemies():
 	var edge = randi() % 4
 	var viewport_size = camera.get_viewport_rect().size
@@ -86,6 +138,8 @@ func increase_difficulty():
 	enemy_max += 5
 	score_per_second += 5
 	next_threshold_cap += int(next_threshold_cap * .5) + 500
+	player.cur_health = player.health
+	player.cur_mana = player.mana
 	
 func get_next_enemy():
 	#Spawn only skeletons at the start
