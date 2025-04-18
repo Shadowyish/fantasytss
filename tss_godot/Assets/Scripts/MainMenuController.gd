@@ -11,10 +11,18 @@ func _ready():
 	$CharacterSelectPanel/VBoxContainer/Warrior.pressed.connect(_on_warrior_pressed)
 	$CharacterSelectPanel/VBoxContainer/Archer.pressed.connect(_on_archer_pressed)
 	$CharacterSelectPanel/VBoxContainer/Mage.pressed.connect(_on_mage_pressed)
+	$CharacterSelectPanel/VBoxContainer/Back.pressed.connect(_on_charselect_back_pressed)
+	$VBoxContainer/StartButton.grab_focus()
 
 func _on_start_game_pressed():
 	starting_menu_panel.visible = false
 	character_select_panel.visible = true
+	$CharacterSelectPanel/VBoxContainer/Warrior.grab_focus()
+
+func _on_charselect_back_pressed():
+	starting_menu_panel.visible = true
+	character_select_panel.visible = false
+	$VBoxContainer/StartButton.grab_focus()
 
 func _on_options_pressed():
 	#TODO:Implement Options?

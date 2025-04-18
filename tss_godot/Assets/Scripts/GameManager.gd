@@ -68,6 +68,7 @@ func launch_game(map: String, character: String):
 	game_score = 0
 	enemy_count = 0
 	score_per_second = 5
+	next_threshold_cap = 1000
 	enemy_max = 10
 	game_mode = GameMode.Game
 	pickup_timer = Timer.new()

@@ -59,16 +59,24 @@ grow_vertical = 2
 [node name="StartButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+focus_neighbor_bottom = NodePath("../OptionsButton")
+focus_next = NodePath("../OptionsButton")
 text = "Start Game"
 
 [node name="OptionsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+focus_neighbor_top = NodePath("../StartButton")
+focus_neighbor_bottom = NodePath("../QuitButton")
+focus_next = NodePath("../QuitButton")
+focus_previous = NodePath("../StartButton")
 text = "Options?"
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+focus_neighbor_top = NodePath("../OptionsButton")
+focus_previous = NodePath("../OptionsButton")
 text = "Quit"
 
 [node name="CharacterSelectPanel" type="Panel" parent="."]
@@ -99,6 +107,8 @@ grow_vertical = 2
 [node name="Warrior" type="Button" parent="CharacterSelectPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+focus_neighbor_bottom = NodePath("../Archer")
+focus_next = NodePath("../Archer")
 text = " Warrior"
 icon = SubResource("AtlasTexture_fjp33")
 icon_alignment = 2
@@ -107,6 +117,10 @@ expand_icon = true
 [node name="Archer" type="Button" parent="CharacterSelectPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+focus_neighbor_top = NodePath("../Warrior")
+focus_neighbor_bottom = NodePath("../Mage")
+focus_next = NodePath("../Mage")
+focus_previous = NodePath("../Warrior")
 text = "Archer"
 icon = SubResource("AtlasTexture_mj2c6")
 icon_alignment = 2
@@ -115,10 +129,18 @@ expand_icon = true
 [node name="Mage" type="Button" parent="CharacterSelectPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+focus_neighbor_top = NodePath("../Archer")
+focus_neighbor_bottom = NodePath("../Back")
+focus_next = NodePath("../Back")
+focus_previous = NodePath("../Archer")
 text = "Mage"
 icon = SubResource("AtlasTexture_41dgq")
 icon_alignment = 2
 expand_icon = true
+
+[node name="Back" type="Button" parent="CharacterSelectPanel/VBoxContainer"]
+layout_mode = 2
+text = "Back"
 
 [node name="Label" type="Label" parent="CharacterSelectPanel"]
 layout_mode = 0
