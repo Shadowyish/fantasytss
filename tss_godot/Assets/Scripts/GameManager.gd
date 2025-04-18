@@ -6,6 +6,7 @@ var input_type = ControlType.MOUSE_KEYBOARD  # Default to keyboard & mouse
 var game_mode = GameMode.Menu
 var player: Node #Spawn into scene instead of natively in scene
 var camera: Camera2D #Spawn into scene instead of natively in scene
+var ui: Control #Holds in game UI Component, for pausing, etc.
 var follow_speed: float = 5.0
 var time_passed: float = 0.0
 var game_score: int = 0
@@ -42,6 +43,13 @@ func _process(delta):
 		if Input.is_action_just_pressed("pause"):
 			Engine.time_scale = 0.0
 			game_mode = GameMode.Pause
+			ui._on_pause()
+
+func _input(event):
+	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
+		input_type = ControlType.GAMEPAD
+	elif event is InputEventKey or event is InputEventMouse:
+		input_type = ControlType.MOUSE_KEYBOARD
 
 func _on_pickup_timeout():
 	if mana_pickup_count < 10:
@@ -64,6 +72,7 @@ func launch_game(map: String, character: String):
 	
 	#ensure the game is set up properly
 	#reset game stats to defaults
+	ui = get_tree().current_scene.find_child("GameUI")
 	Engine.time_scale = 1.0
 	game_score = 0
 	enemy_count = 0

@@ -14,6 +14,7 @@ var is_dead = false
 var is_hit = false
 var is_facing_right = true
 var is_attacking = false
+var controller_deadzone = .2
 
 signal player_died
 
@@ -57,11 +58,11 @@ func _physics_process(delta):
 	# Get rotation direction
 	if GameManager.input_type == GameManager.ControlType.MOUSE_KEYBOARD:
 		aim_direction = (get_global_mouse_position() - global_position).normalized()
-	elif GameManager.Game_Manager.input_type == GameManager.ControlType.GAMEPAD:
-		aim_direction = Vector2(
-			Input.get_axis("right_stick_left", "right_stick_right"),
-			Input.get_axis("right_stick_up", "right_stick_down")
-		).normalized()
+	elif GameManager.input_type == GameManager.ControlType.GAMEPAD:
+		var stick_input = Input.get_vector("right_stick_left", "right_stick_right",
+				"right_stick_up", "right_stick_down")
+		if stick_input.length() > controller_deadzone:
+			aim_direction = stick_input.normalized()
 	
 	if not is_attacking:
 		cur_weapon.position = aim_direction * cur_weapon.pixels_from_player 
