@@ -60,7 +60,7 @@ func _physics_process(delta):
 		aim_direction = (get_global_mouse_position() - global_position).normalized()
 	elif GameManager.input_type == GameManager.ControlType.GAMEPAD:
 		var stick_input = Input.get_vector("right_stick_left", "right_stick_right",
-				"right_stick_up", "right_stick_down")
+				"right_stick_up", "right_stick_down", .2)
 		if stick_input.length() > controller_deadzone:
 			aim_direction = stick_input.normalized()
 	

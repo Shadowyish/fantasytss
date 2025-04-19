@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b5du3kcbbry37"]
+[gd_scene load_steps=9 format=3 uid="uid://b5du3kcbbry37"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Bow.gd" id="1_hbr5t"]
 [ext_resource type="Texture2D" uid="uid://de22pdp0c7yqo" path="res://Assets/SpriteSheets/weapons_.png" id="1_r0d1u"]
@@ -39,11 +39,14 @@ animations = [{
 "speed": 16.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_rugms"]
+radius = 25.0
+
 [node name="Bow" type="Node2D"]
 script = ExtResource("1_hbr5t")
 special_time = 10.0
 pierce_count = 5
-pixels_from_player = 20
+pixels_from_player = 15
 mana_cost = 5
 
 [node name="Animator" type="AnimatedSprite2D" parent="."]
@@ -52,3 +55,9 @@ animation = &"attack"
 autoplay = "attack"
 frame = 3
 frame_progress = 1.0
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 14
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_rugms")

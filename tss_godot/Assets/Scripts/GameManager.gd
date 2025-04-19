@@ -23,6 +23,7 @@ var zombie_threshold: int = 2000 # Second threshold, used to control what score 
 var wraith_threshold: int = 5750 # Fourth threshold, used to control what score wraiths can spawn
 var max_camera_threshold: float = 256.0
 var min_camera_threshold: float = -256.0
+var camera_size: Vector2
 
 func _process(delta):
 	if(game_mode == GameMode.Game):
@@ -30,6 +31,8 @@ func _process(delta):
 		camera.position = camera.position.lerp(GameManager.player.position, follow_speed * delta)
 		camera.position.x = clamp(camera.position.x, min_camera_threshold, max_camera_threshold)
 		camera.position.y = clamp(camera.position.y, min_camera_threshold, max_camera_threshold)
+		player.global_position.x = clamp(player.global_position.x, min_camera_threshold - (camera_size.x/4), max_camera_threshold + (camera_size.x/4))
+		player.global_position.y = clamp(player.global_position.y, min_camera_threshold - (camera_size.y/4), max_camera_threshold + (camera_size.y/4))
 		if enemy_count < enemy_max:
 			for i in randi_range(1, enemy_max - enemy_count):
 				spawn_enemies()
@@ -81,6 +84,7 @@ func launch_game(map: String, character: String):
 	enemy_max = 10
 	game_mode = GameMode.Game
 	pickup_timer = Timer.new()
+	camera_size = camera.get_viewport_rect().size
 	get_tree().current_scene.add_child(pickup_timer)
 	pickup_timer.connect("timeout", _on_pickup_timeout)
 	pickup_timer.start(pickup_time)
