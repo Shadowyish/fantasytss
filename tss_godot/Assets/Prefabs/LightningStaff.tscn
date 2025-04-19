@@ -24,6 +24,7 @@ region_rect = Rect2(13, 4, 6, 24)
 
 [node name="Area2D" type="Area2D" parent="."]
 rotation = 1.5708
+collision_mask = 14
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 rotation = 3.14159
