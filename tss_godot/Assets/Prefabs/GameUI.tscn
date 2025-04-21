@@ -88,6 +88,34 @@ anchor_bottom = 0.75
 offset_left = -10.0
 offset_right = -10.0
 
+[node name="Controls" type="Label" parent="CanvasLayer/PausePanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.5
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "Move: Left Stick/WASD
+Aim: Right Stick/ Mouse
+Attack: RB/LMB
+Special: LB/RMB"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control Label" type="Label" parent="CanvasLayer/PausePanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.15
+anchor_right = 1.5
+anchor_bottom = 0.3
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Current Controls"
+horizontal_alignment = 1
+
 [node name="Label" type="Label" parent="CanvasLayer/PausePanel"]
 layout_mode = 1
 anchors_preset = -1
@@ -130,3 +158,40 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../ResumeButton")
 focus_previous = NodePath("../ResumeButton")
 text = "Quit to Main Menu"
+
+[node name="ControlPanel" type="Panel" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.25
+anchor_right = 0.75
+anchor_bottom = 0.75
+offset_left = -10.0
+offset_right = -10.0
+
+[node name="Controls" type="Label" parent="CanvasLayer/ControlPanel"]
+layout_mode = 2
+offset_left = 163.5
+offset_top = 116.0
+offset_right = 412.5
+offset_bottom = 142.0
+theme_override_font_sizes/font_size = 20
+text = "Move: Left Stick/WASD
+Aim: Right Stick/ Mouse
+Attack: RB/LMB
+Special: LB/RMB"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/ControlPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.15
+anchor_right = 0.5
+anchor_bottom = 0.15
+offset_left = -31.0
+offset_right = 31.0
+offset_bottom = 26.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Controls"

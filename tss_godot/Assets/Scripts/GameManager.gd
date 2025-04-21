@@ -16,7 +16,6 @@ var score_per_second: int = 5
 var enemy_count: int = 0
 var mana_pickup_count: int = 0
 var score_pickup_count: int = 0
-var pickup_timer: Timer
 var enemy_max: int = 10 # Max enemies at one time, difficulty increases this
 var spawn_offset: int = -100 # How many pixels offset from the camera border spawns for enemies should occur
 var next_threshold_cap: int = 1000 # the score at which the game first increases difficulty
@@ -25,6 +24,8 @@ var wraith_threshold: int = 5750 # Fourth threshold, used to control what score 
 var max_camera_threshold: float = 256.0
 var min_camera_threshold: float = -256.0
 var camera_size: Vector2
+var pickup_timer: Timer
+var control_timer: Timer 
 
 func _process(delta):
 	if(game_mode == GameMode.Game):
@@ -89,10 +90,15 @@ func launch_game(map: String, character: String):
 	score_pickup_count = 0
 	game_mode = GameMode.Game
 	pickup_timer = Timer.new()
+	control_timer = Timer.new()
 	camera_size = camera.get_viewport_rect().size
 	get_tree().current_scene.add_child(pickup_timer)
 	pickup_timer.connect("timeout", _on_pickup_timeout)
+	get_tree().current_scene.add_child(control_timer)
+	control_timer.one_shot = true
+	control_timer.connect("timeout", ui._on_display_timeout)
 	pickup_timer.start(pickup_time)
+	control_timer.start(control_display_time)
 
 func spawn_mana_pickups():
 	var viewport_size = camera.get_viewport_rect().size
