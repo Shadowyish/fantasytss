@@ -9,13 +9,14 @@ var camera: Camera2D #Spawn into scene instead of natively in scene
 var ui: Control #Holds in game UI Component, for pausing, etc.
 var follow_speed: float = 5.0
 var time_passed: float = 0.0
+var pickup_time: float = 10.0
+var control_display_time: float = 3.0 #controls how long the tooltip for controls lasts on game start
 var game_score: int = 0
 var score_per_second: int = 5
 var enemy_count: int = 0
 var mana_pickup_count: int = 0
 var score_pickup_count: int = 0
 var pickup_timer: Timer
-var pickup_time: float = 10.0
 var enemy_max: int = 10 # Max enemies at one time, difficulty increases this
 var spawn_offset: int = -100 # How many pixels offset from the camera border spawns for enemies should occur
 var next_threshold_cap: int = 1000 # the score at which the game first increases difficulty
@@ -33,6 +34,7 @@ func _process(delta):
 		camera.position.y = clamp(camera.position.y, min_camera_threshold, max_camera_threshold)
 		player.global_position.x = clamp(player.global_position.x, min_camera_threshold - (camera_size.x/4), max_camera_threshold + (camera_size.x/4))
 		player.global_position.y = clamp(player.global_position.y, min_camera_threshold - (camera_size.y/4), max_camera_threshold + (camera_size.y/4))
+		# handle game logic
 		if enemy_count < enemy_max:
 			for i in randi_range(1, enemy_max - enemy_count):
 				spawn_enemies()
@@ -43,6 +45,7 @@ func _process(delta):
 				increase_score(score_per_second)
 		if game_score > next_threshold_cap:
 			increase_difficulty()
+		# pause
 		if Input.is_action_just_pressed("pause"):
 			Engine.time_scale = 0.0
 			game_mode = GameMode.Pause
