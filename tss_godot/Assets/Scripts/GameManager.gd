@@ -82,6 +82,8 @@ func launch_game(map: String, character: String):
 	score_per_second = 5
 	next_threshold_cap = 1000
 	enemy_max = 10
+	mana_pickup_count = 0
+	score_pickup_count = 0
 	game_mode = GameMode.Game
 	pickup_timer = Timer.new()
 	camera_size = camera.get_viewport_rect().size
