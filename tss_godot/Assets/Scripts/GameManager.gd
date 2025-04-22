@@ -7,6 +7,7 @@ var game_mode = GameMode.Menu
 var player: Node #Spawn into scene instead of natively in scene
 var camera: Camera2D #Spawn into scene instead of natively in scene
 var ui: Control #Holds in game UI Component, for pausing, etc.
+var player_name: String = "test"
 var follow_speed: float = 5.0
 var time_passed: float = 0.0
 var pickup_time: float = 10.0
@@ -194,6 +195,6 @@ func resume_game():
 	Engine.time_scale = 1.0
 
 func quit_game():
-	#TODO: Handle Save Data Logic
+	SaveManager.save(game_score, player_name)
 	game_mode = GameMode.Menu
 	get_tree().change_scene_to_file("res://Assets/Scenes/MainMenu.tscn")

@@ -70,7 +70,7 @@ focus_neighbor_top = NodePath("../StartButton")
 focus_neighbor_bottom = NodePath("../QuitButton")
 focus_next = NodePath("../QuitButton")
 focus_previous = NodePath("../StartButton")
-text = "Options?"
+text = "Leaderboard"
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -149,3 +149,135 @@ offset_top = -160.0
 offset_right = 119.0
 offset_bottom = -134.0
 text = "Whoose fate shall you peer at?"
+
+[node name="NameInputPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.4
+anchor_right = 0.6
+anchor_bottom = 0.6
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LineEdit" type="LineEdit" parent="NameInputPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.45
+anchor_right = 0.65
+anchor_bottom = 0.5
+offset_left = -38.08
+offset_top = -15.8
+offset_right = 81.24
+offset_bottom = 14.72
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "Name?"
+alignment = 1
+max_length = 64
+expand_to_text_length = true
+
+[node name="SubmitButton" type="Button" parent="NameInputPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.8
+anchor_right = 0.5
+anchor_bottom = 0.9
+offset_left = -63.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Submit"
+
+[node name="Back" type="Button" parent="NameInputPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.75
+anchor_top = 0.8
+anchor_right = 0.95
+anchor_bottom = 0.9
+offset_left = -63.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Back"
+
+[node name="Label" type="Label" parent="NameInputPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.15
+anchor_right = 0.15
+anchor_bottom = 0.15
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Please Input your name:"
+
+[node name="LeaderboardPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.3
+anchor_right = 0.8
+anchor_bottom = 0.8
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="LeaderboardPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.05
+anchor_right = 1.0
+anchor_bottom = 0.05
+offset_bottom = 26.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 24
+text = "Leaderboard!"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="LeaderboardPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.15
+anchor_right = 0.95
+anchor_bottom = 0.85
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_bottom = NodePath("../Back")
+focus_previous = NodePath("../Back")
+follow_focus = true
+
+[node name="LeaderboardList" type="VBoxContainer" parent="LeaderboardPanel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Back" type="Button" parent="LeaderboardPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.45
+anchor_top = 0.9
+anchor_right = 0.55
+anchor_bottom = 0.95
+offset_left = -4.0
+offset_top = -8.0
+offset_right = 4.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_neighbor_top = NodePath("../ScrollContainer")
+focus_next = NodePath("../ScrollContainer")
+text = "Back"

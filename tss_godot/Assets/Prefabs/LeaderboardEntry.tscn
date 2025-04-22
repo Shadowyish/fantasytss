@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://rajwcqxes10k"]
+
+[node name="LeaderboardEntry" type="Label"]
+text = "Moth: Score"
+horizontal_alignment = 1
