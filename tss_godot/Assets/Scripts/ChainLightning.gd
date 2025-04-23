@@ -43,7 +43,7 @@ func _on_body_entered(body):
 			$LightningSparks.emitting = true
 		else: 
 			hit_targets.append(body)
-			$LightningSparks.emitting = true
+			$LightningSparks.restart()
 		body.take_damage(damage)
 		max_jumps -= 1
 		if max_jumps <= 1:

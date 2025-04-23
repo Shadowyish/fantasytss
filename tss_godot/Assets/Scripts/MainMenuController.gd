@@ -7,7 +7,7 @@ extends Control
 @onready var leaderboard_list = $LeaderboardPanel/ScrollContainer/LeaderboardList
 
 func _ready():
-	# Connect button signalsto their proper functions
+	# Connect button signals to their proper functions
 	$VBoxContainer/StartButton.pressed.connect(_on_start_game_pressed)
 	$VBoxContainer/OptionsButton.pressed.connect(_on_leaderboard_pressed)
 	$VBoxContainer/QuitButton.pressed.connect(_on_quit_pressed)
@@ -18,6 +18,7 @@ func _ready():
 	$NameInputPanel/SubmitButton.pressed.connect(_on_name_input)
 	$NameInputPanel/Back.pressed.connect(_on_nameinput_back_pressed)
 	$LeaderboardPanel/Back.pressed.connect(_on_leaderboard_back_pressed)
+	$NameInputPanel/LineEdit.text_submitted.connect(_on_name_input_submitted)
 	# have first option grab focus, so controller input will work
 	$VBoxContainer/StartButton.grab_focus()
 
@@ -40,6 +41,14 @@ func _on_name_input():
 	character_select_panel.visible = true
 	name_input_panel.visible = false
 	GameManager.player_name = $NameInputPanel/LineEdit.text
+	$CharacterSelectPanel/VBoxContainer/Warrior.grab_focus()
+
+#Used for the LineEdit signal that is emitted on pressing Enter
+#Named it this, because apparently I can't overload the method :(
+func _on_name_input_submitted(name_: String):
+	character_select_panel.visible = true
+	name_input_panel.visible = false
+	GameManager.player_name = name
 	$CharacterSelectPanel/VBoxContainer/Warrior.grab_focus()
 
 func _on_leaderboard_pressed():

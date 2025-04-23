@@ -3,6 +3,7 @@ extends Weapon
 @export var pierce_count: int # num of enemies arrow should pierce through, should be atleast 1
 
 @onready var anim = $Animator
+@onready var aoe_effect: CPUParticles2D = $AOEParticles
 @onready var special_timer: Timer = Timer.new()
 
 func _ready():
@@ -22,12 +23,14 @@ func attack():
 	emit_signal("attack_finished")
 	
 func special():
-	GameManager.player.speed *= 2
-	special_timer.start(special_time)
+	if special_timer.is_stopped():
+		GameManager.player.speed *= 2
+		special_timer.start(special_time)
+	else:
+		special_timer.start(special_timer.time_left + special_time)
 	for body in $Area2D.get_overlapping_bodies():
 		if !body.is_in_group("Player"):
 			body.take_damage(15)
-	emit_signal("attack_finished")
 	
 func end_special():
 	GameManager.player.speed /=2

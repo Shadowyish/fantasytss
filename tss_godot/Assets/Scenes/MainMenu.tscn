@@ -182,6 +182,9 @@ placeholder_text = "Name?"
 alignment = 1
 max_length = 64
 expand_to_text_length = true
+context_menu_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
 
 [node name="SubmitButton" type="Button" parent="NameInputPanel"]
 layout_mode = 1

@@ -15,6 +15,7 @@ var swing_angle: float # Angle offset for the swing
 
 @onready var hp_regen_timer: Timer = Timer.new()
 @onready var hp_regen_ticker: Timer = Timer.new()
+@onready var heal_effect: CPUParticles2D = $HealParticles #holds particle effect for special
 
 func attack():
 	if is_swinging:
@@ -24,13 +25,23 @@ func attack():
 	swing_timer = 0.0
 	
 func special():
-	#TODO: Add Animations to Special
-	hp_regen_ticker.start(special_regen_tick)
-	hp_regen_timer.start(special_regen_time)
+	if hp_regen_timer.is_stopped():
+		hp_regen_ticker.start(special_regen_tick)
+		hp_regen_timer.start(special_regen_time)
+		#move heal particles to player
+		remove_child(heal_effect)
+		GameManager.player.add_child(heal_effect)
+		heal_effect.global_position = GameManager.player.global_position
+		heal_effect.emitting = true
+	else:
+		hp_regen_timer.start(hp_regen_timer.time_left + special_regen_time)
 	emit_signal("attack_finished")
 	
 func end_special():
 	hp_regen_ticker.stop()
+	heal_effect.emitting = false
+	GameManager.player.remove_child(heal_effect)
+	add_child(heal_effect)
 	
 func _process(delta):
 	if is_swinging:
