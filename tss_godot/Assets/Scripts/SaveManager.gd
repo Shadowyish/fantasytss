@@ -50,6 +50,6 @@ func add_score(score:int, name_:String)-> bool:
 
 func find_insertion_index(score:int) -> int:
 	for i in range(score_list.size()):
-		if score_list[i] < score:
+		if score_list[i].score < score:
 			return i
 	return score_list.size()

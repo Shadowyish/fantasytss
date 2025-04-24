@@ -31,6 +31,7 @@ func special():
 	for body in $Area2D.get_overlapping_bodies():
 		if !body.is_in_group("Player"):
 			body.take_damage(15)
+	emit_signal("attack_finished")
 	
 func end_special():
 	GameManager.player.speed /=2

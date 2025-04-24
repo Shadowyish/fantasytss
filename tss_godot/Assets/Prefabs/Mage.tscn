@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Assets/Scripts/PlayerController.gd" id="1_1051h"]
 [ext_resource type="Texture2D" uid="uid://ce5txl102oq68" path="res://Assets/SpriteSheets/merlin_.png" id="2_utck0"]
-[ext_resource type="PackedScene" uid="uid://d1j6klwny8dpt" path="res://Assets/Prefabs/FireBallStaff.tscn" id="3_lv3jg"]
+[ext_resource type="PackedScene" uid="uid://by6aadms1vrto" path="res://Assets/Prefabs/LightningStaff.tscn" id="3_qfcw6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ydc17"]
 
@@ -335,7 +335,7 @@ script = ExtResource("1_1051h")
 speed = 100.0
 health = 100
 mana = 50
-cur_weapon = NodePath("FireBallStaff")
+cur_weapon = NodePath("LightningStaff")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
 position = Vector2(0.5, 0)
@@ -350,5 +350,4 @@ autoplay = "idle_right"
 frame = 3
 frame_progress = 1.0
 
-[node name="FireBallStaff" parent="." instance=ExtResource("3_lv3jg")]
-position = Vector2(20, 0)
+[node name="LightningStaff" parent="." instance=ExtResource("3_qfcw6")]

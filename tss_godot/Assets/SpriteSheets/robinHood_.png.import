@@ -16,7 +16,7 @@ dest_files=["res://.godot/imported/robinHood_.png-1c69760609f217050636b395e3a8f4
 [params]
 
 compress/mode=0
-compress/high_quality=false
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0

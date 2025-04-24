@@ -78,7 +78,7 @@ func _on_mage_pressed():
 func update_leaderboard():
 	for entry in SaveManager.score_list:
 		var score_listing = load("res://Assets/Prefabs/LeaderboardEntry.tscn").instantiate()
-		score_listing.text = entry.name + ":" + str(entry.score)
+		score_listing.text = entry.name_ + ":" + str(entry.score)
 		leaderboard_list.add_child(score_listing)
 
 func break_down_leaderboard():
