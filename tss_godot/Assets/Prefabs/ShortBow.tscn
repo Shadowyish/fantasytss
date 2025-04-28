@@ -1,22 +1,22 @@
-[gd_scene load_steps=9 format=3 uid="uid://b5du3kcbbry37"]
+[gd_scene load_steps=9 format=3 uid="uid://dqlnxdj0j0ra5"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/Bow.gd" id="1_hbr5t"]
-[ext_resource type="Texture2D" uid="uid://de22pdp0c7yqo" path="res://Assets/SpriteSheets/weapons_.png" id="1_r0d1u"]
+[ext_resource type="Script" path="res://Assets/Scripts/Bow.gd" id="1_by7dc"]
+[ext_resource type="Texture2D" uid="uid://de22pdp0c7yqo" path="res://Assets/SpriteSheets/weapons_.png" id="2_1pla8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ym8lf"]
-atlas = ExtResource("1_r0d1u")
+atlas = ExtResource("2_1pla8")
 region = Rect2(12, 0, 12, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8j3fp"]
-atlas = ExtResource("1_r0d1u")
+atlas = ExtResource("2_1pla8")
 region = Rect2(24, 0, 12, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bxid3"]
-atlas = ExtResource("1_r0d1u")
+atlas = ExtResource("2_1pla8")
 region = Rect2(36, 0, 12, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kw31n"]
-atlas = ExtResource("1_r0d1u")
+atlas = ExtResource("2_1pla8")
 region = Rect2(12, 0, 12, 24)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6jgwr"]
@@ -36,20 +36,21 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack",
-"speed": 16.0
+"speed": 32.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rugms"]
 radius = 25.0
 
-[node name="Bow" type="Node2D"]
-script = ExtResource("1_hbr5t")
-special_time = 10.0
-pierce_count = 10
+[node name="ShortBow" type="Node2D"]
+script = ExtResource("1_by7dc")
+special_time = 15.0
+pierce_count = 5
 pixels_from_player = 15
 mana_cost = 5
 
 [node name="Animator" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_6jgwr")
 animation = &"attack"
 autoplay = "attack"

@@ -4,8 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://bpqclodjwaavr" path="res://Assets/SpriteSheets/goblin_.png" id="2_o8q3h"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cddcy"]
-radius = 12.0
-height = 34.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e22g8"]
 atlas = ExtResource("2_o8q3h")
@@ -253,6 +251,7 @@ hp = 50
 score = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_cddcy")
 
 [node name="Animator" type="AnimatedSprite2D" parent="CharacterBody2D"]

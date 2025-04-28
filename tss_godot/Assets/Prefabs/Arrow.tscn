@@ -10,7 +10,7 @@ size = Vector2(4, 14)
 rotation = 1.5708
 script = ExtResource("1_k6u5i")
 arrow_speed = 200.0
-damage = 10
+damage = 5
 destroy_time = 5.0
 
 [node name="Area2D" type="Area2D" parent="."]

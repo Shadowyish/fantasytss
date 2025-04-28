@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://pl255fd0jym5" path="res://Assets/SpriteSheets/ghost_.png" id="2_mesdq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_skeiy"]
-radius = 8.0
-height = 26.0
+radius = 7.0
+height = 24.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0bnfi"]
 atlas = ExtResource("2_mesdq")

@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://m7lulvuh3seg" path="res://Assets/SpriteSheets/skeleton_.png" id="2_jyfme"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cddcy"]
-radius = 5.0
-height = 18.0
+radius = 3.0
+height = 18.1682
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sjde6"]
 atlas = ExtResource("2_jyfme")
@@ -253,7 +253,8 @@ hp = 10
 score = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-position = Vector2(0, 1)
+position = Vector2(0, 2)
+scale = Vector2(1, 0.9357)
 shape = SubResource("CapsuleShape2D_cddcy")
 
 [node name="Animator" type="AnimatedSprite2D" parent="CharacterBody2D"]
