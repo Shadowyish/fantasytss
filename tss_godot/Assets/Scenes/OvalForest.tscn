@@ -1,7 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://bb1kxgg032nd2"]
+[gd_scene load_steps=3 format=3 uid="uid://bb1kxgg032nd2"]
 
 [ext_resource type="PackedScene" uid="uid://bdyw4b6ahfj76" path="res://Assets/Prefabs/GameUI.tscn" id="1_gbapl"]
+
+[sub_resource type="TileSet" id="TileSet_07r01"]
 
 [node name="OvalForest" type="Node2D"]
 
 [node name="GameUI" parent="." instance=ExtResource("1_gbapl")]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_07r01")
+format = 2
