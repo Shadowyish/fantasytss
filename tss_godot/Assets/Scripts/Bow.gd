@@ -28,9 +28,10 @@ func special():
 		special_timer.start(special_time)
 	else:
 		special_timer.start(special_timer.time_left + special_time)
+	aoe_effect.emitting = true
 	for body in $Area2D.get_overlapping_bodies():
 		if !body.is_in_group("Player"):
-			body.take_damage(15)
+			body.take_damage(50)
 	emit_signal("attack_finished")
 	
 func end_special():
