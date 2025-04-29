@@ -71,7 +71,8 @@ func _ready():
 	hp_regen_ticker.connect("timeout", GameManager.player.heal.bind(special_regen_amount))
 	
 func _on_body_entered(body):
-	if not body.is_in_group("Player"):
-		body.take_damage(damage)
-	elif !has_player:
-		GameManager.player.pickup_weapon()
+	if has_player:
+		if !body.is_in_group("Player"):
+			body.take_damage(damage)
+	elif body.is_in_group("Player"):
+		GameManager.player.pickup_weapon(self)

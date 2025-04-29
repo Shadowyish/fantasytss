@@ -37,10 +37,11 @@ func _ready():
 	$Area2D.body_entered.connect(_on_body_entered)
 	
 func _on_body_entered(body):
-	if not body.is_in_group("Player"):
-		body.take_damage(damage)
-	elif !has_player:
-		GameManager.player.pickup_weapon()
+	if has_player:
+		if !body.is_in_group("Player"):
+			body.take_damage(damage)
+	elif body.is_in_group("Player"):
+		GameManager.player.pickup_weapon(self)
 
 func special():
 	var fireball = load("res://Assets/Prefabs/Fireball.tscn").instantiate()

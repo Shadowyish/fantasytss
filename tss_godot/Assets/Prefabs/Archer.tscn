@@ -299,3 +299,4 @@ frame_progress = 0.357587
 [node name="Bow" parent="." instance=ExtResource("3_onpw8")]
 z_index = 4
 position = Vector2(12, 0)
+has_player = true

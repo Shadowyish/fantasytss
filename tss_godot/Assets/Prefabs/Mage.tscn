@@ -352,3 +352,4 @@ frame = 3
 frame_progress = 1.0
 
 [node name="LightningStaff" parent="." instance=ExtResource("3_qfcw6")]
+has_player = true

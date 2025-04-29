@@ -40,4 +40,4 @@ func end_special():
 
 func _on_body_entered(body):
 	if body.is_in_group("Player") and !has_player:
-		GameManager.player.pickup_weapon()
+		GameManager.player.pickup_weapon(self)

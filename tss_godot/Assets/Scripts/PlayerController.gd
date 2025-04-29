@@ -144,7 +144,10 @@ func use_weapon_special():
 	cur_weapon.special()
 	
 func pickup_weapon(weapon: Node):
-	cur_weapon.queue_free()
+	var trash = cur_weapon
+	remove_child(trash)
+	trash.queue_free() 
 	cur_weapon = weapon
 	add_child(weapon)
+	weapon.global_position = global_position
 	weapon.has_player = true

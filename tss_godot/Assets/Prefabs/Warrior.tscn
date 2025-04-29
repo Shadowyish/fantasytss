@@ -351,3 +351,4 @@ autoplay = "idle_right"
 
 [node name="Sword" parent="." instance=ExtResource("3_yphf6")]
 position = Vector2(15, 0)
+has_player = true

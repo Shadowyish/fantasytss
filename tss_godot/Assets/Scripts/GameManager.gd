@@ -202,25 +202,28 @@ func get_next_enemy() -> Node2D:
 	
 func spawn_skele() -> Node2D:
 	var skele = load("res://Assets/Prefabs/Skeleton.tscn").instantiate()
-	skele.hp *= pow(1.25, diff_threshold_level / 5.0)
-	skele.damage *= pow(1.5, diff_threshold_level / 5.0)
-	skele.speed *= pow(1.25, diff_threshold_level / 5.0)
+	var stats = skele.get_node("CharacterBody2D")
+	stats.hp *= pow(1.25, diff_threshold_level / 5.0)
+	stats.damage *= pow(1.5, diff_threshold_level / 5.0)
+	stats.speed *= pow(1.25, diff_threshold_level / 5.0)
 	return skele
 	
 func spawn_zombie() -> Node2D:
 	#subtracting 2 cause that's when zombies start spawning
 	var zom = load("res://Assets/Prefabs/Zombie.tscn").instantiate()
-	zom.hp *= pow(2, diff_threshold_level -2 / 5.0)
-	zom.damage *= pow(1.5, diff_threshold_level -2 / 5.0)
-	zom.speed *= pow(1.25, diff_threshold_level -2 / 5.0)
+	var stats = zom.get_node("CharacterBody2D")
+	stats.hp *= pow(2, diff_threshold_level -2 / 5.0)
+	stats.damage *= pow(1.5, diff_threshold_level -2 / 5.0)
+	stats.speed *= pow(1.25, diff_threshold_level -2 / 5.0)
 	return zom
 	
 func spawn_wraith() -> Node2D:
 	var wraith = load("res://Assets/Prefabs/Wraith.tscn").instantiate()
 	#subtracting 4 cause that's when wraiths start spawning
-	wraith.hp *= pow(1.25, diff_threshold_level -4 / 5.0)
-	wraith.damage *= pow(2, diff_threshold_level -4 / 5.0)
-	wraith.speed *= pow(1.5, diff_threshold_level -4 / 5.0)
+	var stats = wraith.get_node("CharacterBody2D")
+	stats.hp *= pow(1.25, diff_threshold_level -4 / 5.0)
+	stats.damage *= pow(2, diff_threshold_level -4 / 5.0)
+	stats.speed *= pow(1.5, diff_threshold_level -4 / 5.0)
 	return wraith
 	
 func spawn_weapon_pickup():
@@ -237,7 +240,7 @@ func spawn_weapon_pickup():
 	spawn_position.y = clamp(spawn_position.y, min_camera_threshold, max_camera_threshold)
 	pickup.position = spawn_position
 	get_tree().current_scene.add_child(pickup)
-	get_tree().create_timer(15.0).connect("timeout", on_weapon_pickup_timeout.bind(pickup))
+	get_tree().create_timer(30.0).connect("timeout", on_weapon_pickup_timeout.bind(pickup))
 	
 func pick_weapon_spawn():
 	var weapon_rand = randi() % 6
