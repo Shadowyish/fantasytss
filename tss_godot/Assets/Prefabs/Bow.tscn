@@ -50,6 +50,7 @@ pixels_from_player = 15
 mana_cost = 5
 
 [node name="Animator" type="AnimatedSprite2D" parent="."]
+z_index = 4
 sprite_frames = SubResource("SpriteFrames_6jgwr")
 animation = &"attack"
 autoplay = "attack"

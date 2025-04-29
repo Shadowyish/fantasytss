@@ -16,6 +16,7 @@ pixels_from_player = 20
 mana_cost = 10
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 4
 rotation = 1.5708
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_hextg")

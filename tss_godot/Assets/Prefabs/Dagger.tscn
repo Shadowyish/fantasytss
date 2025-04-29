@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://mphqiq765sjb"]
+[gd_scene load_steps=7 format=3 uid="uid://gakntw703pn8"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Blade.gd" id="1_wyd3u"]
 [ext_resource type="Texture2D" uid="uid://pvslf1v4urft" path="res://Assets/SpriteSheets/excalibur_.png" id="2_egkgd"]
@@ -35,6 +35,7 @@ pixels_from_player = 15
 mana_cost = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 4
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_egkgd")
 region_enabled = true
@@ -48,6 +49,7 @@ collision_mask = 14
 shape = SubResource("RectangleShape2D_g8v8v")
 
 [node name="HealParticles" type="CPUParticles2D" parent="."]
+z_index = 4
 emitting = false
 amount = 50
 lifetime = 2.0

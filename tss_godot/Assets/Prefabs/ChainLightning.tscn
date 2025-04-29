@@ -62,11 +62,13 @@ shape = SubResource("CircleShape2D_abhji")
 
 [node name="Animator" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.647059, 0.662745, 0.172549, 1)
+z_index = 4
 sprite_frames = SubResource("SpriteFrames_8h7wl")
 autoplay = "default"
 frame_progress = 0.886527
 
 [node name="LightningSparks" type="CPUParticles2D" parent="."]
+z_index = 4
 emitting = false
 amount = 50
 one_shot = true
@@ -86,6 +88,7 @@ hue_variation_min = -0.5
 hue_variation_max = 0.5
 
 [node name="LightningTrail" type="CPUParticles2D" parent="."]
+z_index = 4
 emitting = false
 amount = 10
 lifetime = 0.75

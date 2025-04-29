@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dqlnxdj0j0ra5"]
+[gd_scene load_steps=9 format=3 uid="uid://bt4bjgg836b65"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Bow.gd" id="1_by7dc"]
 [ext_resource type="Texture2D" uid="uid://de22pdp0c7yqo" path="res://Assets/SpriteSheets/weapons_.png" id="2_1pla8"]
@@ -50,6 +50,7 @@ pixels_from_player = 15
 mana_cost = 5
 
 [node name="Animator" type="AnimatedSprite2D" parent="."]
+z_index = 4
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_6jgwr")
 animation = &"attack"
@@ -64,4 +65,5 @@ collision_mask = 14
 shape = SubResource("CircleShape2D_rugms")
 
 [node name="AOEParticles" type="CPUParticles2D" parent="."]
+z_index = 4
 emitting = false

@@ -256,6 +256,7 @@ score = 150
 shape = SubResource("CapsuleShape2D_skeiy")
 
 [node name="Animator" type="AnimatedSprite2D" parent="CharacterBody2D"]
+z_index = 4
 position = Vector2(0, -4)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_jkuml")

@@ -118,6 +118,7 @@ shape = SubResource("CircleShape2D_abhji")
 
 [node name="Animator" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.890196, 0, 0, 1)
+z_index = 4
 sprite_frames = SubResource("SpriteFrames_8h7wl")
 animation = &"explode"
 autoplay = "default"

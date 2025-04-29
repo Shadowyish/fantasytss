@@ -255,6 +255,7 @@ position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_cddcy")
 
 [node name="Animator" type="AnimatedSprite2D" parent="CharacterBody2D"]
+z_index = 4
 position = Vector2(0, -8)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_1jmfj")

@@ -20,6 +20,7 @@ collision_mask = 14
 shape = SubResource("RectangleShape2D_dhkmf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 4
 texture = ExtResource("2_jinox")
 region_enabled = true
 region_rect = Rect2(52, 5, 4, 14)
