@@ -20,6 +20,7 @@ var score_pickup_count: int = 0
 var enemy_max: int = 10 # Max enemies at one time, difficulty increases this
 var spawn_offset: int = -100 # How many pixels offset from the camera border spawns for enemies should occur
 var next_threshold_cap: int = 1000 # the score at which the game first increases difficulty
+var diff_threshold_level: int = 1 # levels of difficulty
 var zombie_threshold: int = 2000 # Second threshold, used to control what score zombies can spawn
 var wraith_threshold: int = 5750 # Fourth threshold, used to control what score wraiths can spawn
 var max_camera_threshold: float = 256.0
@@ -82,6 +83,7 @@ func launch_game(map: String, character: String):
 	#reset game stats to defaults
 	ui = get_tree().current_scene.find_child("GameUI")
 	Engine.time_scale = 1.0
+	diff_threshold_level = 1
 	game_score = 0
 	enemy_count = 0
 	score_per_second = 5
@@ -163,32 +165,60 @@ func increase_score(score: int):
 func increase_difficulty():
 	enemy_max += 5
 	score_per_second += 5
-	next_threshold_cap += int(next_threshold_cap * .5) + 500
+	diff_threshold_level += 1
+	next_threshold_cap = int(next_threshold_cap * 1.5 + 500)
 	player.cur_health = player.health
 	player.cur_mana = player.mana
 	
-func get_next_enemy():
+func get_next_enemy() -> Node2D:
 	#Spawn only skeletons at the start
-	if next_threshold_cap <= 2000:
-		return load("res://Assets/Prefabs/Skeleton.tscn").instantiate()
+	if diff_threshold_level <= 2:
+		return spawn_skele()
 	#Once first threshold reached you can spawn zombies too
-	elif next_threshold_cap <= 5750:
+	elif diff_threshold_level <= 4:
 		var enemy_rand = randi() % 2
 		match enemy_rand:
 			0:
-				return load("res://Assets/Prefabs/Zombie.tscn").instantiate()
+				return spawn_zombie()
 			1: 
-				return load("res://Assets/Prefabs/Skeleton.tscn").instantiate()
+				return spawn_skele()
+			_: 
+				push_error("Something wrong with enemy spawning, random number mismatch")
+				return null
 	#Once past second threshold we can spawn all three
 	else:
 		var enemy_rand = randi() % 3
 		match enemy_rand:
 			0:
-				return load("res://Assets/Prefabs/Zombie.tscn").instantiate()
+				return spawn_zombie()
 			1: 
-				return load("res://Assets/Prefabs/Skeleton.tscn").instantiate()
+				return spawn_skele()
 			2:
-				return load("res://Assets/Prefabs/Wraith.tscn").instantiate()
+				return spawn_wraith()
+			_:
+				push_error("Something wrong with enemy spawning, random number mismatch")
+				return null
+	
+func spawn_skele() -> Node2D:
+	var skele = load("res://Assets/Prefabs/Skeleton.tscn").instantiate()
+	skele.hp *= pow(1.25, diff_threshold_level / 5.0)
+	skele.damage *= pow(1.5, diff_threshold_level / 5.0)
+	skele.speed *= pow(1.25, diff_threshold_level / 5.0)
+	return skele
+	
+func spawn_zombie() -> Node2D:
+	var zom = load("res://Assets/Prefabs/Zombie.tscn").instantiate()
+	zom.hp *= pow(2, diff_threshold_level / 5.0)
+	zom.damage *= pow(1.25, diff_threshold_level / 5.0)
+	zom.speed *= pow(1.25, diff_threshold_level / 5.0)
+	return zom
+	
+func spawn_wraith() -> Node2D:
+	var wraith = load("res://Assets/Prefabs/Wraith.tscn").instantiate()
+	wraith.hp *= pow(1.25, diff_threshold_level / 5.0)
+	wraith.damage *= pow(1.5, diff_threshold_level / 5.0)
+	wraith.speed *= pow(1.5, diff_threshold_level / 5.0)
+	return wraith
 	
 func resume_game():
 	game_mode = GameMode.Game
