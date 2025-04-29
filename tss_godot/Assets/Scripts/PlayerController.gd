@@ -64,6 +64,7 @@ func _physics_process(delta):
 		if stick_input.length() > controller_deadzone:
 			aim_direction = stick_input.normalized()
 	
+	#move weapon to face aim direction when it's not in use
 	if not is_attacking:
 		cur_weapon.position = aim_direction * cur_weapon.pixels_from_player 
 		cur_weapon.rotation = aim_direction.angle()
@@ -141,3 +142,9 @@ func use_weapon_special():
 	is_attacking = true
 	cur_mana -= cur_weapon.mana_cost
 	cur_weapon.special()
+	
+func pickup_weapon(weapon: Node):
+	cur_weapon.queue_free()
+	cur_weapon = weapon
+	add_child(weapon)
+	weapon.has_player = true

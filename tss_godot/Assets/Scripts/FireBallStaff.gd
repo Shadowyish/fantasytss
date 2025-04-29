@@ -39,6 +39,8 @@ func _ready():
 func _on_body_entered(body):
 	if not body.is_in_group("Player"):
 		body.take_damage(damage)
+	elif !has_player:
+		GameManager.player.pickup_weapon()
 
 func special():
 	var fireball = load("res://Assets/Prefabs/Fireball.tscn").instantiate()

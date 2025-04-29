@@ -167,6 +167,7 @@ func increase_difficulty():
 	score_per_second += 5
 	diff_threshold_level += 1
 	next_threshold_cap = int(next_threshold_cap * 1.5 + 500)
+	spawn_weapon_pickup()
 	player.cur_health = player.health
 	player.cur_mana = player.mana
 	
@@ -222,10 +223,49 @@ func spawn_wraith() -> Node2D:
 	wraith.speed *= pow(1.5, diff_threshold_level -4 / 5.0)
 	return wraith
 	
+func spawn_weapon_pickup():
+	var viewport_size = camera.get_viewport_rect().size
+	var spawn_position = Vector2.ZERO
+	# generate somewhere on the screen!
+	spawn_position = Vector2(randf_range(camera.global_position.x - viewport_size.x / 2,
+			camera.global_position.x + viewport_size.x / 2), 
+			randf_range(camera.global_position.y - viewport_size.y / 2,
+			camera.global_position.y + viewport_size.y / 2))
+	var pickup = pick_weapon_spawn()
+	# make sure pickups don't get locked behind the camera lock
+	spawn_position.x = clamp(spawn_position.x, min_camera_threshold, max_camera_threshold)
+	spawn_position.y = clamp(spawn_position.y, min_camera_threshold, max_camera_threshold)
+	pickup.position = spawn_position
+	get_tree().current_scene.add_child(pickup)
+	get_tree().create_timer(15.0).connect("timeout", on_weapon_pickup_timeout.bind(pickup))
+	
+func pick_weapon_spawn():
+	var weapon_rand = randi() % 6
+	match weapon_rand:
+		0:
+			return load("res://Assets/Prefabs/Bow.tscn").instantiate()
+		1:
+			return load("res://Assets/Prefabs/LightningStaff.tscn").instantiate()
+		2:
+			return load("res://Assets/Prefabs/FireBallStaff.tscn").instantiate()
+		3:
+			return load("res://Assets/Prefabs/ShortBow.tscn").instantiate()
+		4:
+			return load("res://Assets/Prefabs/Dagger.tscn").instantiate()
+		5:
+			return load("res://Assets/Prefabs/Sword.tscn").instantiate()
+		_:
+			push_error("issue with weapon spawning, issue with random number mismatch")
+			return null
+	
 func resume_game():
 	game_mode = GameMode.Game
 	Engine.time_scale = 1.0
-
+	
+func on_weapon_pickup_timeout(pickup: Node2D):
+	if pickup.has_player != true:
+		pickup.queue_free();
+	
 func quit_game():
 	SaveManager.save(game_score, player_name)
 	game_mode = GameMode.Menu
