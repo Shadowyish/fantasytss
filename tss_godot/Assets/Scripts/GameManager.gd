@@ -207,17 +207,19 @@ func spawn_skele() -> Node2D:
 	return skele
 	
 func spawn_zombie() -> Node2D:
+	#subtracting 2 cause that's when zombies start spawning
 	var zom = load("res://Assets/Prefabs/Zombie.tscn").instantiate()
-	zom.hp *= pow(2, diff_threshold_level / 5.0)
-	zom.damage *= pow(1.25, diff_threshold_level / 5.0)
-	zom.speed *= pow(1.25, diff_threshold_level / 5.0)
+	zom.hp *= pow(2, diff_threshold_level -2 / 5.0)
+	zom.damage *= pow(1.5, diff_threshold_level -2 / 5.0)
+	zom.speed *= pow(1.25, diff_threshold_level -2 / 5.0)
 	return zom
 	
 func spawn_wraith() -> Node2D:
 	var wraith = load("res://Assets/Prefabs/Wraith.tscn").instantiate()
-	wraith.hp *= pow(1.25, diff_threshold_level / 5.0)
-	wraith.damage *= pow(1.5, diff_threshold_level / 5.0)
-	wraith.speed *= pow(1.5, diff_threshold_level / 5.0)
+	#subtracting 4 cause that's when wraiths start spawning
+	wraith.hp *= pow(1.25, diff_threshold_level -4 / 5.0)
+	wraith.damage *= pow(2, diff_threshold_level -4 / 5.0)
+	wraith.speed *= pow(1.5, diff_threshold_level -4 / 5.0)
 	return wraith
 	
 func resume_game():
