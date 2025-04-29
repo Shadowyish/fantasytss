@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bb1kxgg032nd2"]
+[gd_scene load_steps=7 format=3 uid="uid://bb1kxgg032nd2"]
 
 [ext_resource type="PackedScene" uid="uid://bdyw4b6ahfj76" path="res://Assets/Prefabs/GameUI.tscn" id="1_gbapl"]
 [ext_resource type="Texture2D" uid="uid://lt86fhee184v" path="res://Assets/SpriteSheets/32x32.png" id="2_b5os5"]
@@ -656,6 +656,13 @@ physics_layer_0/collision_layer = 16
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_87lf8")
 sources/1 = SubResource("TileSetAtlasSource_2ifyc")
 
+[sub_resource type="Environment" id="Environment_jci14"]
+ambient_light_color = Color(0.117647, 0.117647, 0.117647, 1)
+fog_enabled = true
+fog_light_energy = 3.0
+fog_sun_scatter = 1.0
+fog_height = -200.0
+
 [node name="OvalForest" type="Node2D"]
 
 [node name="GameUI" parent="." instance=ExtResource("1_gbapl")]
@@ -682,3 +689,6 @@ layer_2/y_sort_enabled = false
 layer_2/y_sort_origin = 0
 layer_2/z_index = 3
 layer_2/tile_data = PackedInt32Array(-786415, 983041, 7, -786414, 983041, 7, -786413, 983041, 7, -786412, 983041, 7, -786411, 983041, 7, -786410, 983041, 7, -786409, 983041, 7, -393197, 327681, 10, -458728, 327681, 10, -524269, 327681, 10, -327663, 327681, 10, -1048556, 720897, 1, -851951, 983041, 7, -851950, 983041, 7, -851949, 983041, 7, -851948, 983041, 7, -851947, 983041, 7, -851946, 983041, 7, -851945, 983041, 7)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jci14")
