@@ -102,6 +102,7 @@ func launch_game(map: String, character: String):
 	control_timer.connect("timeout", ui._on_display_timeout)
 	pickup_timer.start(pickup_time)
 	control_timer.start(control_display_time)
+	player.connect("player_died", ui._on_player_death)
 
 func spawn_mana_pickups():
 	var viewport_size = camera.get_viewport_rect().size
