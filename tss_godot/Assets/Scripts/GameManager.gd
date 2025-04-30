@@ -268,7 +268,7 @@ func resume_game():
 	
 func on_weapon_pickup_timeout(pickup: Node2D):
 	if pickup.has_player != true:
-		pickup.queue_free();
+		pickup.call_deferred("queue_free");
 	
 func quit_game():
 	SaveManager.save(game_score, player_name)
