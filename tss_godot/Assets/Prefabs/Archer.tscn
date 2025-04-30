@@ -287,7 +287,7 @@ cur_weapon = NodePath("Bow")
 shape = SubResource("CircleShape2D_ey7yp")
 one_way_collision_margin = 0.0
 
-[node name="Animator" type="AnimatedSprite2D" parent="."]
+[node name="Animator" type="AnimatedSprite2D" parent="." groups=["Player"]]
 position = Vector2(2.84217e-14, -2)
 scale = Vector2(0.85, 0.85)
 sprite_frames = SubResource("SpriteFrames_gk5yd")

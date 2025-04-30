@@ -147,7 +147,8 @@ func pickup_weapon(weapon: Node):
 	var trash = cur_weapon
 	remove_child(trash)
 	trash.queue_free() 
+	weapon.reparent(self)
 	cur_weapon = weapon
-	add_child(weapon)
 	weapon.global_position = global_position
 	weapon.has_player = true
+	weapon.connect("attack_finished", _on_attack_done)
