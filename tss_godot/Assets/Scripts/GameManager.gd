@@ -27,7 +27,9 @@ var max_camera_threshold: float = 256.0
 var min_camera_threshold: float = -256.0
 var camera_size: Vector2
 var pickup_timer: Timer
-var control_timer: Timer 
+var control_timer: Timer
+var weapon_pickup_timer: Timer
+var weapon_spawned: bool = false
 
 func _process(delta):
 	if(game_mode == GameMode.Game):
@@ -94,6 +96,8 @@ func launch_game(map: String, character: String):
 	game_mode = GameMode.Game
 	pickup_timer = Timer.new()
 	control_timer = Timer.new()
+	weapon_pickup_timer = Timer.new()
+	get_tree().current_scene.add_child(weapon_pickup_timer)
 	camera_size = camera.get_viewport_rect().size
 	get_tree().current_scene.add_child(pickup_timer)
 	pickup_timer.connect("timeout", _on_pickup_timeout)
@@ -228,20 +232,23 @@ func spawn_wraith() -> Node2D:
 	return wraith
 	
 func spawn_weapon_pickup():
-	var viewport_size = camera.get_viewport_rect().size
-	var spawn_position = Vector2.ZERO
-	# generate somewhere on the screen!
-	spawn_position = Vector2(randf_range(camera.global_position.x - viewport_size.x / 2,
-			camera.global_position.x + viewport_size.x / 2), 
-			randf_range(camera.global_position.y - viewport_size.y / 2,
-			camera.global_position.y + viewport_size.y / 2))
-	var pickup = pick_weapon_spawn()
-	# make sure pickups don't get locked behind the camera lock
-	spawn_position.x = clamp(spawn_position.x, min_camera_threshold, max_camera_threshold)
-	spawn_position.y = clamp(spawn_position.y, min_camera_threshold, max_camera_threshold)
-	pickup.position = spawn_position
-	get_tree().current_scene.add_child(pickup)
-	get_tree().create_timer(30.0).connect("timeout", on_weapon_pickup_timeout.bind(pickup))
+	if !weapon_spawned:
+		var viewport_size = camera.get_viewport_rect().size
+		var spawn_position = Vector2.ZERO
+		# generate somewhere on the screen!
+		spawn_position = Vector2(randf_range(camera.global_position.x - viewport_size.x / 2,
+				camera.global_position.x + viewport_size.x / 2), 
+				randf_range(camera.global_position.y - viewport_size.y / 2,
+				camera.global_position.y + viewport_size.y / 2))
+		var pickup = pick_weapon_spawn()
+		# make sure pickups don't get locked behind the camera lock
+		spawn_position.x = clamp(spawn_position.x, min_camera_threshold, max_camera_threshold)
+		spawn_position.y = clamp(spawn_position.y, min_camera_threshold, max_camera_threshold)
+		pickup.position = spawn_position
+		get_tree().current_scene.add_child(pickup)
+		weapon_pickup_timer.start(30)
+		weapon_pickup_timer.connect("timeout", on_weapon_pickup_timeout.bind(pickup))
+		weapon_spawned = true
 	
 func pick_weapon_spawn():
 	var weapon_rand = randi() % 6
@@ -269,6 +276,7 @@ func resume_game():
 func on_weapon_pickup_timeout(pickup: Node2D):
 	if pickup.has_player != true:
 		pickup.call_deferred("queue_free");
+	weapon_spawned = false
 	
 func quit_game():
 	SaveManager.save(game_score, player_name)
