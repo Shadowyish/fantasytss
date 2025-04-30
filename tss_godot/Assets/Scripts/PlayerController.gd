@@ -145,8 +145,7 @@ func use_weapon_special():
 	
 func pickup_weapon(weapon: Node):
 	var trash = cur_weapon
-	remove_child(trash)
-	trash.queue_free() 
+	trash.call_deferred("queue_free")
 	weapon.reparent(self)
 	cur_weapon = weapon
 	weapon.global_position = global_position
