@@ -7,7 +7,7 @@
 radius = 4.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_abhji"]
-radius = 60.0
+radius = 78.1601
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_obsvt"]
 atlas = ExtResource("1_l7eq5")
@@ -44,7 +44,7 @@ script = ExtResource("1_7th11")
 speed = 200.0
 damage = 50
 destroy_time = 10.0
-max_jumps = 10
+max_jumps = 15
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_mask = 14

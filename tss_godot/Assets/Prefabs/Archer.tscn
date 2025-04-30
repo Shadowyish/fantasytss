@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Assets/Scripts/PlayerController.gd" id="1_00bu3"]
 [ext_resource type="Texture2D" uid="uid://dwxcpf4je5ghg" path="res://Assets/SpriteSheets/robinHood_.png" id="2_mvffq"]
-[ext_resource type="PackedScene" uid="uid://b5du3kcbbry37" path="res://Assets/Prefabs/Bow.tscn" id="3_onpw8"]
+[ext_resource type="PackedScene" uid="uid://bt4bjgg836b65" path="res://Assets/Prefabs/ShortBow.tscn" id="3_22yur"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ey7yp"]
 radius = 9.5
@@ -281,7 +281,7 @@ script = ExtResource("1_00bu3")
 speed = 150.0
 health = 200
 mana = 10
-cur_weapon = NodePath("Bow")
+cur_weapon = NodePath("")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
 shape = SubResource("CircleShape2D_ey7yp")
@@ -296,7 +296,6 @@ autoplay = "idle_right"
 frame = 1
 frame_progress = 0.357587
 
-[node name="Bow" parent="." instance=ExtResource("3_onpw8")]
-z_index = 4
-position = Vector2(12, 0)
+[node name="ShortBow" parent="." instance=ExtResource("3_22yur")]
+position = Vector2(15, 0)
 has_player = true
