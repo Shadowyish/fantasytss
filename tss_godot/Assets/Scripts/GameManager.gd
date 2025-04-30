@@ -20,6 +20,7 @@ var score_pickup_count: int = 0
 var enemy_max: int = 10 # Max enemies at one time, difficulty increases this
 var spawn_offset: int = -100 # How many pixels offset from the camera border spawns for enemies should occur
 var next_threshold_cap: int = 1000 # the score at which the game first increases difficulty
+var diff_threshold_level: int = 1 # levels of difficulty
 var zombie_threshold: int = 2000 # Second threshold, used to control what score zombies can spawn
 var wraith_threshold: int = 5750 # Fourth threshold, used to control what score wraiths can spawn
 var max_camera_threshold: float = 256.0
@@ -82,6 +83,7 @@ func launch_game(map: String, character: String):
 	#reset game stats to defaults
 	ui = get_tree().current_scene.find_child("GameUI")
 	Engine.time_scale = 1.0
+	diff_threshold_level = 1
 	game_score = 0
 	enemy_count = 0
 	score_per_second = 5
@@ -163,37 +165,110 @@ func increase_score(score: int):
 func increase_difficulty():
 	enemy_max += 5
 	score_per_second += 5
-	next_threshold_cap += int(next_threshold_cap * .5) + 500
+	diff_threshold_level += 1
+	next_threshold_cap = int(next_threshold_cap * 1.5 + 500)
+	spawn_weapon_pickup()
 	player.cur_health = player.health
 	player.cur_mana = player.mana
 	
-func get_next_enemy():
+func get_next_enemy() -> Node2D:
 	#Spawn only skeletons at the start
-	if next_threshold_cap <= 2000:
-		return load("res://Assets/Prefabs/Skeleton.tscn").instantiate()
+	if diff_threshold_level <= 2:
+		return spawn_skele()
 	#Once first threshold reached you can spawn zombies too
-	elif next_threshold_cap <= 5750:
+	elif diff_threshold_level <= 4:
 		var enemy_rand = randi() % 2
 		match enemy_rand:
 			0:
-				return load("res://Assets/Prefabs/Zombie.tscn").instantiate()
+				return spawn_zombie()
 			1: 
-				return load("res://Assets/Prefabs/Skeleton.tscn").instantiate()
+				return spawn_skele()
+			_: 
+				push_error("Something wrong with enemy spawning, random number mismatch")
+				return null
 	#Once past second threshold we can spawn all three
 	else:
 		var enemy_rand = randi() % 3
 		match enemy_rand:
 			0:
-				return load("res://Assets/Prefabs/Zombie.tscn").instantiate()
+				return spawn_zombie()
 			1: 
-				return load("res://Assets/Prefabs/Skeleton.tscn").instantiate()
+				return spawn_skele()
 			2:
-				return load("res://Assets/Prefabs/Wraith.tscn").instantiate()
+				return spawn_wraith()
+			_:
+				push_error("Something wrong with enemy spawning, random number mismatch")
+				return null
+	
+func spawn_skele() -> Node2D:
+	var skele = load("res://Assets/Prefabs/Skeleton.tscn").instantiate()
+	var stats = skele.get_node("CharacterBody2D")
+	stats.hp *= pow(1.25, diff_threshold_level / 5.0)
+	stats.damage *= pow(1.5, diff_threshold_level / 5.0)
+	stats.speed *= pow(1.25, diff_threshold_level / 5.0)
+	return skele
+	
+func spawn_zombie() -> Node2D:
+	#subtracting 2 cause that's when zombies start spawning
+	var zom = load("res://Assets/Prefabs/Zombie.tscn").instantiate()
+	var stats = zom.get_node("CharacterBody2D")
+	stats.hp *= pow(2, diff_threshold_level -2 / 5.0)
+	stats.damage *= pow(1.5, diff_threshold_level -2 / 5.0)
+	stats.speed *= pow(1.25, diff_threshold_level -2 / 5.0)
+	return zom
+	
+func spawn_wraith() -> Node2D:
+	var wraith = load("res://Assets/Prefabs/Wraith.tscn").instantiate()
+	#subtracting 4 cause that's when wraiths start spawning
+	var stats = wraith.get_node("CharacterBody2D")
+	stats.hp *= pow(1.25, diff_threshold_level -4 / 5.0)
+	stats.damage *= pow(2, diff_threshold_level -4 / 5.0)
+	stats.speed *= pow(1.5, diff_threshold_level -4 / 5.0)
+	return wraith
+	
+func spawn_weapon_pickup():
+	var viewport_size = camera.get_viewport_rect().size
+	var spawn_position = Vector2.ZERO
+	# generate somewhere on the screen!
+	spawn_position = Vector2(randf_range(camera.global_position.x - viewport_size.x / 2,
+			camera.global_position.x + viewport_size.x / 2), 
+			randf_range(camera.global_position.y - viewport_size.y / 2,
+			camera.global_position.y + viewport_size.y / 2))
+	var pickup = pick_weapon_spawn()
+	# make sure pickups don't get locked behind the camera lock
+	spawn_position.x = clamp(spawn_position.x, min_camera_threshold, max_camera_threshold)
+	spawn_position.y = clamp(spawn_position.y, min_camera_threshold, max_camera_threshold)
+	pickup.position = spawn_position
+	get_tree().current_scene.add_child(pickup)
+	get_tree().create_timer(30.0).connect("timeout", on_weapon_pickup_timeout.bind(pickup))
+	
+func pick_weapon_spawn():
+	var weapon_rand = randi() % 6
+	match weapon_rand:
+		0:
+			return load("res://Assets/Prefabs/Bow.tscn").instantiate()
+		1:
+			return load("res://Assets/Prefabs/LightningStaff.tscn").instantiate()
+		2:
+			return load("res://Assets/Prefabs/FireBallStaff.tscn").instantiate()
+		3:
+			return load("res://Assets/Prefabs/ShortBow.tscn").instantiate()
+		4:
+			return load("res://Assets/Prefabs/Dagger.tscn").instantiate()
+		5:
+			return load("res://Assets/Prefabs/Sword.tscn").instantiate()
+		_:
+			push_error("issue with weapon spawning, issue with random number mismatch")
+			return null
 	
 func resume_game():
 	game_mode = GameMode.Game
 	Engine.time_scale = 1.0
-
+	
+func on_weapon_pickup_timeout(pickup: Node2D):
+	if pickup.has_player != true:
+		pickup.queue_free();
+	
 func quit_game():
 	SaveManager.save(game_score, player_name)
 	game_mode = GameMode.Menu

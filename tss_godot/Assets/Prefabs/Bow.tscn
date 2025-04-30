@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 [gd_scene load_steps=12 format=3 uid="uid://b5du3kcbbry37"]
+=======
+[gd_scene load_steps=10 format=3 uid="uid://b5du3kcbbry37"]
+>>>>>>> 93a815d890df3cb2114a9c4b9434dda63b50c401
 
 [ext_resource type="Script" path="res://Assets/Scripts/Bow.gd" id="1_hbr5t"]
 [ext_resource type="Texture2D" uid="uid://de22pdp0c7yqo" path="res://Assets/SpriteSheets/weapons_.png" id="1_r0d1u"]
@@ -42,6 +46,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_rugms"]
 radius = 25.0
 
+<<<<<<< HEAD
 [sub_resource type="Curve" id="Curve_gm8hu"]
 min_value = -360.0
 max_value = 360.0
@@ -54,6 +59,11 @@ point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_clj8e"]
 colors = PackedColorArray(0.117647, 0.462745, 0.545098, 1, 0.192157, 1, 1, 1)
+=======
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_aeoh2"]
+radius = 4.0
+height = 20.0
+>>>>>>> 93a815d890df3cb2114a9c4b9434dda63b50c401
 
 [node name="Bow" type="Node2D"]
 script = ExtResource("1_hbr5t")
@@ -70,15 +80,16 @@ autoplay = "attack"
 frame = 3
 frame_progress = 1.0
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="SpecialArea" type="Area2D" parent="."]
 collision_mask = 14
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpecialArea"]
 shape = SubResource("CircleShape2D_rugms")
 
 [node name="AOEParticles" type="CPUParticles2D" parent="."]
 z_index = 4
 emitting = false
+<<<<<<< HEAD
 amount = 50
 lifetime = 2.0
 one_shot = true
@@ -98,3 +109,11 @@ scale_amount_max = 5.0
 scale_amount_curve = SubResource("Curve_wb87n")
 color = Color(0.192157, 1, 1, 1)
 color_ramp = SubResource("Gradient_clj8e")
+=======
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1, 0)
+shape = SubResource("CapsuleShape2D_aeoh2")
+>>>>>>> 93a815d890df3cb2114a9c4b9434dda63b50c401

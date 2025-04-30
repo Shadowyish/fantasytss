@@ -44,7 +44,7 @@ func end_special():
 	add_child(heal_effect)
 	
 func _process(delta):
-	if is_swinging:
+	if is_swinging and has_player:
 		swing_timer += delta
 		var progress = swing_timer / swing_duration
 		if progress >= 1.0:
@@ -71,5 +71,8 @@ func _ready():
 	hp_regen_ticker.connect("timeout", GameManager.player.heal.bind(special_regen_amount))
 	
 func _on_body_entered(body):
-	if not body.is_in_group("Player"):
-		body.take_damage(damage)
+	if has_player:
+		if !body.is_in_group("Player"):
+			body.take_damage(damage)
+	elif body.is_in_group("Player"):
+		GameManager.player.pickup_weapon(self)

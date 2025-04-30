@@ -7,6 +7,8 @@ extends Weapon
 @onready var special_timer: Timer = Timer.new()
 
 func _ready():
+	$Area2D.body_entered.connect(_on_body_entered)
+	
 	add_child(special_timer)
 	special_timer.one_shot = true
 	special_timer.connect("timeout", end_special)
@@ -29,10 +31,14 @@ func special():
 	else:
 		special_timer.start(special_timer.time_left + special_time)
 	aoe_effect.emitting = true
-	for body in $Area2D.get_overlapping_bodies():
+	for body in $SpecialArea.get_overlapping_bodies():
 		if !body.is_in_group("Player"):
 			body.take_damage(50)
 	emit_signal("attack_finished")
 	
 func end_special():
 	GameManager.player.speed /=2
+
+func _on_body_entered(body):
+	if body.is_in_group("Player") and !has_player:
+		GameManager.player.pickup_weapon(self)
