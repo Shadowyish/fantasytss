@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bt4bjgg836b65"]
+[gd_scene load_steps=13 format=3 uid="uid://bt4bjgg836b65"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Bow.gd" id="1_by7dc"]
 [ext_resource type="Texture2D" uid="uid://de22pdp0c7yqo" path="res://Assets/SpriteSheets/weapons_.png" id="2_1pla8"]
@@ -42,6 +42,19 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_rugms"]
 radius = 25.0
 
+[sub_resource type="Curve" id="Curve_wsbge"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_focyy"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_6l7ff"]
+colors = PackedColorArray(0.117647, 0.462745, 0.545098, 1, 0.192157, 1, 1, 1)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e2nlb"]
 radius = 2.0
 height = 16.0
@@ -71,6 +84,25 @@ shape = SubResource("CircleShape2D_rugms")
 [node name="AOEParticles" type="CPUParticles2D" parent="."]
 z_index = 4
 emitting = false
+amount = 50
+lifetime = 2.0
+one_shot = true
+speed_scale = 5.0
+explosiveness = 0.5
+randomness = 0.2
+emission_shape = 1
+emission_sphere_radius = 25.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+angle_min = -180.0
+angle_max = 180.0
+angle_curve = SubResource("Curve_wsbge")
+scale_amount_min = 2.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_focyy")
+color = Color(0.192157, 1, 1, 1)
+color_ramp = SubResource("Gradient_6l7ff")
 
 [node name="Area2D" type="Area2D" parent="."]
 

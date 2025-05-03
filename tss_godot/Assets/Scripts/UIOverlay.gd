@@ -40,7 +40,6 @@ func _on_pause():
 	
 func _on_display_timeout():
 	control_display.visible = false
-	push_warning("Got the timeout signal")
 
 func _on_player_death():
 	$CanvasLayer/DeathPanel.visible = true
