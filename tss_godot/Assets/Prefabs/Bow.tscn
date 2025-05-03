@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-[gd_scene load_steps=12 format=3 uid="uid://b5du3kcbbry37"]
-=======
 [gd_scene load_steps=10 format=3 uid="uid://b5du3kcbbry37"]
->>>>>>> 93a815d890df3cb2114a9c4b9434dda63b50c401
 
 [ext_resource type="Script" path="res://Assets/Scripts/Bow.gd" id="1_hbr5t"]
 [ext_resource type="Texture2D" uid="uid://de22pdp0c7yqo" path="res://Assets/SpriteSheets/weapons_.png" id="1_r0d1u"]
