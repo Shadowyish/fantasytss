@@ -145,9 +145,12 @@ func use_weapon_special():
 	
 func pickup_weapon(weapon: Node):
 	var trash = cur_weapon
-	remove_child(trash)
-	trash.queue_free() 
+	GameManager.weapon_pickup_timer.disconnect("timeout", GameManager.on_weapon_pickup_timeout.bind(weapon))
+	trash.call_deferred("queue_free")
+	weapon.call_deferred("reparent", self)
 	cur_weapon = weapon
-	add_child(weapon)
 	weapon.global_position = global_position
 	weapon.has_player = true
+	weapon.connect("attack_finished", _on_attack_done)
+	GameManager.weapon_spawned = false
+	is_attacking = false

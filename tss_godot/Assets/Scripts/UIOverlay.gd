@@ -7,6 +7,7 @@ extends Control
 @onready var pause_panel = $CanvasLayer/PausePanel
 @onready var resume_button = $CanvasLayer/PausePanel/VBoxContainer/ResumeButton
 @onready var quit_button = $CanvasLayer/PausePanel/VBoxContainer/QuitButton
+@onready var death_button = $CanvasLayer/DeathPanel/Button
 @onready var control_display = $CanvasLayer/ControlPanel
 
 var mouse_control_text = "Move: WASD \nAim: Mouse \nAttack: LMB \nSpecial: RMB"
@@ -15,6 +16,7 @@ var controller_control_text = "Move: Left Stick \nAim: Right Stick \nAttack: RB 
 func _ready():
 	resume_button.pressed.connect(_on_resume_button)
 	quit_button.pressed.connect(_on_quit_button)
+	death_button.pressed.connect(_on_quit_button)
 	$CanvasLayer/ControlPanel/Controls.text =  mouse_control_text if GameManager.input_type == GameManager.ControlType.MOUSE_KEYBOARD else controller_control_text
 	
 func _process(_delta):
@@ -39,3 +41,7 @@ func _on_pause():
 func _on_display_timeout():
 	control_display.visible = false
 	push_warning("Got the timeout signal")
+
+func _on_player_death():
+	$CanvasLayer/DeathPanel.visible = true
+	death_button.grab_focus()
